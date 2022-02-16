@@ -1,0 +1,26 @@
+@import "styles/global.module.scss";
+.messages {
+  width: 40%;
+  border: $border;
+  border-right: none;
+
+  &_navbar {
+    @include center;
+    height: 49px;
+    border-bottom: 1px solid $border-color;
+    p {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 2rem;
+      width: 60%;
+      svg {
+        width: 2.5rem;
+      }
+    }
+    svg {
+      @include active;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@import "styles/global.module.scss";
+.body {
+  width: min($container-width, 100%);
+  margin: 0 auto;
+  display: flex;
+  margin-top: 20px;
+}

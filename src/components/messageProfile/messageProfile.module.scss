@@ -1,0 +1,25 @@
+@import "styles/global.module.scss";
+.messageProfile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 1.25rem;
+  &:hover {
+    background-color: $dark-white;
+  }
+  img {
+    width: 3.5rem;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+  }
+  p {
+    font-size: 0.875rem;
+    line-height: 0.688rem;
+    font-weight: 400;
+
+    &:last-child {
+      margin-top: 0.5rem;
+      color: $color-gray;
+    }
+  }
+}
