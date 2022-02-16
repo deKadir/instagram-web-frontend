@@ -1,0 +1,23 @@
+@import "styles/main.module.scss";
+.navbar {
+  @include center;
+  height: 53px;
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  &_container {
+    width: min($container-width, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0px;
+    &_icons {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      img {
+        width: 22px;
+        border-radius: 50%;
+      }
+    }
+  }
+}

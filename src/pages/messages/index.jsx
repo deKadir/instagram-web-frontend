@@ -1,5 +1,11 @@
 import React from "react";
+import Navbar from "components/navbar";
 
 export default function Messages() {
-  return <div>Messages</div>;
+  return (
+    <div>
+      <Navbar />
+      messages
+    </div>
+  );
 }
