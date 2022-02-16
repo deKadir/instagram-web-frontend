@@ -3,6 +3,9 @@
   @include center;
   height: 53px;
   border-bottom: 1px solid $border-color;
+  z-index: 1;
+  top: 0;
+  background-color: $color-white;
   position: sticky;
   &_container {
     width: min($container-width, 100%);

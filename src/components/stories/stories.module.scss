@@ -2,5 +2,6 @@
 .stories {
   border: $border;
   padding: 18px 0px;
-  margin: 0;
+  margin-bottom: 1.5rem;
+  width: min(614px, 100%);
 }

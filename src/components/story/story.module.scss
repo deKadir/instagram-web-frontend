@@ -1,6 +1,7 @@
 @import "styles/global.module.scss";
 .story {
   padding-inline: 4px;
+  cursor: pointer;
   &_container {
     display: flex;
     flex-direction: column;

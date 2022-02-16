@@ -1,14 +1,21 @@
-@import "./global.module.scss";
 @import "./variables.module.scss";
+@import "./global.module.scss";
 svg,
 a {
   cursor: pointer;
   display: block;
-  &:active {
-    opacity: 0.8;
-  }
 }
+a {
+  @include active;
+}
+
 :root {
   color: $color-primary;
   font-size: 16px;
+}
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  @include active;
 }
