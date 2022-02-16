@@ -1,2 +1,14 @@
 @import "./global.module.scss";
 @import "./variables.module.scss";
+svg,
+a {
+  cursor: pointer;
+  display: block;
+  &:active {
+    opacity: 0.8;
+  }
+}
+:root {
+  color: $color-primary;
+  font-size: 16px;
+}
