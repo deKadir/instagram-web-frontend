@@ -1,0 +1,36 @@
+@import "styles/global.module.scss";
+.follow {
+  display: flex;
+  cursor: pointer;
+  height: 3rem;
+  align-items: center;
+  img {
+    border-radius: 50%;
+    margin-right: 0.75rem;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 0.688rem;
+    margin-bottom: 0.2rem;
+    @include hover_underline;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    span {
+      font-size: 0.75rem;
+      color: $color-gray;
+    }
+  }
+  button {
+    @include buttonPrimary;
+    margin-left: 0.4rem;
+    font-size: 0.75rem;
+    line-height: 0.688rem;
+    font-weight: 600;
+    display: block;
+    margin-left: auto;
+  }
+}

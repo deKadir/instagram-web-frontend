@@ -18,4 +18,6 @@ button {
   border: none;
   cursor: pointer;
   @include active;
+  @include disabled;
+  background-color: transparent;
 }

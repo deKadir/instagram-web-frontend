@@ -16,7 +16,7 @@ export default function Post() {
     <div className={style.post}>
       <div className={style.post_owner}>
         <div>
-          <img src={profile} />
+          <img src={profile} alt="" />
           <a>
             <p>Kadir</p>
           </a>
@@ -24,7 +24,7 @@ export default function Post() {
         <MoreIcon />
       </div>
       <div className={style.post_img}>
-        <img src={profile} />
+        <img src={profile} alt="" />
       </div>
       <div className={style.post_actions}>
         <HeartIcon />
@@ -53,7 +53,7 @@ export default function Post() {
         <EmojiIcon />
 
         <Input placeholder="Add a comment..." />
-        <Button>Post</Button>
+        <Button disabled={true}>Post</Button>
       </div>
     </div>
   );

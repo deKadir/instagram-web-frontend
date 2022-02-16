@@ -23,3 +23,14 @@
   background-color: transparent;
   color: $color-secondary;
 }
+@mixin disabled {
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+@mixin hover_underline {
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

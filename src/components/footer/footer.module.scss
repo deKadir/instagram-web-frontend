@@ -1,0 +1,10 @@
+@import "styles/global.module.scss";
+.footer {
+  button {
+    font-size: 0.668rem;
+    line-height: 0.813rem;
+    font-weight: 400;
+    color: $color-gray;
+  }
+  margin-top: 0.75rem;
+}

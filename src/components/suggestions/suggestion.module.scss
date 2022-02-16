@@ -1,0 +1,24 @@
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.625rem;
+  p,
+  button {
+    font-weight: 600;
+    margin-top: 0.75rem;
+  }
+  p {
+    font-size: 0.875rem;
+    line-height: 1.2rem;
+  }
+  button {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 0.5rem;
+  }
+}

@@ -33,7 +33,7 @@ export default function Navbar() {
             <HeartIcon />
           </Link>
           <Link to={""}>
-            <img src={profile} />
+            <img src={profile} alt="" />
           </Link>
         </div>
       </div>

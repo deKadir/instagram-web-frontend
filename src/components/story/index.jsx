@@ -9,7 +9,7 @@ export default function Story({ style: _style, sharer, width = "66px" }) {
           className={style.story_image}
           style={{ width: width, height: width }}
         >
-          <img src={profile} />
+          <img src={profile} alt="" />
         </div>
         <span>Kadir</span>
       </div>
