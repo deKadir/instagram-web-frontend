@@ -1,0 +1,9 @@
+@import "styles/global.module.scss";
+.action {
+  display: flex;
+  align-items: center;
+  svg {
+    @include active;
+    width: 40px;
+  }
+}

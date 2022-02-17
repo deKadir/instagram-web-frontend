@@ -1,0 +1,10 @@
+@import "styles/global.module.scss";
+
+.button {
+  &_primary {
+    @include btn_primary;
+  }
+  &_secondary {
+    @include btn_secondary;
+  }
+}

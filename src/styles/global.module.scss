@@ -34,3 +34,20 @@
     cursor: pointer;
   }
 }
+@mixin btn {
+  padding: 6px 10px;
+  border-radius: $btn-border-radius;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  font-weight: 600;
+}
+@mixin btn_primary {
+  @include btn;
+  background-color: $color-secondary;
+  color: $color-white;
+}
+@mixin btn_secondary {
+  @include btn;
+  background-color: $color-white;
+  border: $border;
+}
