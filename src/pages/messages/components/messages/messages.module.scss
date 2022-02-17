@@ -3,10 +3,10 @@
   width: 40%;
   border: $border;
   border-right: none;
-
+  overflow: auto;
   &_navbar {
     @include center;
-    height: 49px;
+    height: 3rem;
     border-bottom: 1px solid $border-color;
     p {
       display: flex;

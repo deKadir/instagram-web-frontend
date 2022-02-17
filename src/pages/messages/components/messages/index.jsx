@@ -14,7 +14,6 @@ export default function Messages() {
       <MessageProfile />
       <MessageProfile />
       <MessageProfile />
-      <MessageProfile />
     </div>
   );
 }

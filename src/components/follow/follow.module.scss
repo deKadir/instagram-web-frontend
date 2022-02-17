@@ -15,6 +15,7 @@
     line-height: 0.688rem;
     margin-bottom: 0.2rem;
     @include hover_underline;
+    @include active;
   }
   div {
     display: flex;

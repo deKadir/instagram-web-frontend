@@ -8,7 +8,10 @@ a {
 a {
   @include active;
 }
-
+input {
+  outline: none;
+  border: none;
+}
 :root {
   color: $color-primary;
   font-size: 16px;
