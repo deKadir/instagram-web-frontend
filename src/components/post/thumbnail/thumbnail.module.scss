@@ -1,0 +1,30 @@
+.thumbnail_img {
+  position: relative;
+  width: 292px;
+  height: 292px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  svg {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 21px;
+    height: 21px;
+  }
+}
+.thumbnail_video {
+  position: relative;
+  width: 615px;
+  height: 615px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  svg {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 21px;
+    height: 21px;
+  }
+}

@@ -11,7 +11,7 @@ import {
 } from "assets/icons";
 import { Input } from "components/inputs";
 import { Button } from "components/buttons";
-export default function Post() {
+export default function Post({ children }) {
   return (
     <div className={style.post}>
       <div className={style.post_owner}>
@@ -23,9 +23,7 @@ export default function Post() {
         </div>
         <MoreIcon />
       </div>
-      <div className={style.post_img}>
-        <img src={profile} alt="" />
-      </div>
+      <div className={style.post_content}>{children}</div>
       <div className={style.post_actions}>
         <HeartIcon />
         <CommentIcon />
