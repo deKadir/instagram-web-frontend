@@ -7,6 +7,8 @@ a {
 }
 a {
   @include active;
+  text-decoration: none;
+  color: inherit;
 }
 input {
   outline: none;

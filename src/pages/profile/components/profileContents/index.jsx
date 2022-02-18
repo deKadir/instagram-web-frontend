@@ -6,6 +6,8 @@ import Post from "components/post";
 import ThumbnailContainer from "components/post/thumbnail";
 import { ImageThumbnail } from "components/post/thumbnail";
 import { VideoThumbnail } from "components/post/thumbnail";
+import Nopost from "components/nopost";
+import StartSharing from "../startSharing";
 const navbarItems = [
   {
     title: "Posts",
@@ -35,20 +37,18 @@ export default function ProfileContents() {
           </div>
         ))}
       </div>
-      <div className={style.content}>
-        <GridPosts>
-          <ThumbnailContainer>
-            <ImageThumbnail />
-          </ThumbnailContainer>
-
-          <ThumbnailContainer>
-            <ImageThumbnail />
-          </ThumbnailContainer>
-          <ThumbnailContainer>
-            <ImageThumbnail />
-          </ThumbnailContainer>
-        </GridPosts>
-      </div>
+      {/* <GridPosts>
+        <ThumbnailContainer>
+          <ImageThumbnail />
+        </ThumbnailContainer>
+        <ThumbnailContainer>
+          <ImageThumbnail />
+        </ThumbnailContainer>
+        <ThumbnailContainer>
+          <ImageThumbnail />
+        </ThumbnailContainer>
+      </GridPosts> */}
+      <StartSharing />
     </div>
   );
 }

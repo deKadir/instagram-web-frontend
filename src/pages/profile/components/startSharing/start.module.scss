@@ -1,0 +1,33 @@
+.start {
+  display: flex;
+  margin-top: 1rem;
+  img {
+    width: 40%;
+  }
+  &_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    justify-content: center;
+    h4,
+    p {
+      line-height: 1.125rem;
+    }
+    h4 {
+      font-size: 1.125rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-top: 0.625rem;
+    }
+  }
+  &_images {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    img {
+      width: 25%;
+    }
+  }
+}

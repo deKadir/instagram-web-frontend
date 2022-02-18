@@ -5,6 +5,11 @@
     opacity: 0.8;
   }
 }
+@mixin hover {
+  &:hover {
+    opacity: 0.8;
+  }
+}
 @mixin input {
   margin: 0;
   padding: 0;

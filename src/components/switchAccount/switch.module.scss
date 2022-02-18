@@ -1,7 +1,6 @@
 @import "styles/global.module.scss";
 .switch {
   display: flex;
-  cursor: pointer;
   align-items: center;
   img {
     border-radius: 50%;
@@ -13,7 +12,6 @@
     font-size: 0.875rem;
     line-height: 0.688rem;
     margin-bottom: 0.2rem;
-    @include active;
   }
   div {
     display: flex;
