@@ -1,5 +1,4 @@
 @import "styles/global.module.scss";
 .profileBody {
-  width: min(100%, $container-width);
-  margin: 0 auto;
+  @include body;
 }

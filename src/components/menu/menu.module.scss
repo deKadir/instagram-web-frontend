@@ -1,0 +1,28 @@
+@import "styles/main.module.scss";
+.menu {
+  cursor: pointer;
+  button {
+    position: fixed;
+    width: 100vw;
+    background-color: transparent;
+    left: 0;
+    z-index: 1;
+    top: 0;
+    height: 100vh;
+  }
+  &_toggle {
+    position: relative;
+    display: block;
+    z-index: 3;
+    .menu_items {
+      position: absolute;
+      background-color: $color-white;
+      box-shadow: $shadow;
+      display: flex;
+      flex-direction: column;
+      left: -100%;
+      border-radius: 0.5rem;
+      margin-top: 0.8rem;
+    }
+  }
+}

@@ -1,6 +1,4 @@
 @import "styles/global.module.scss";
 .body {
   @include body;
-  display: flex;
-  height: 87vh;
 }

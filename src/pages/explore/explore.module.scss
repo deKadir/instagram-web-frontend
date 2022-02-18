@@ -1,7 +1,6 @@
 @import "styles/global.module.scss";
 .explore {
   &_body {
-    width: min($container-width, 100%);
-    margin: 0 auto;
+    @include body;
   }
 }
