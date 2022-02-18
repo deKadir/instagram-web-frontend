@@ -16,6 +16,7 @@ import { TaggedIcon } from "assets/icons";
 import { SettingsIcon } from "assets/icons";
 import Style from "constants/style";
 import { SaveIcon } from "assets/icons";
+import { NewPostIcon } from "assets/icons";
 export default function Navbar() {
   return (
     <div className={style.navbar}>
@@ -31,6 +32,9 @@ export default function Navbar() {
           <Link to={"/messages"}>
             <MessengerIcon />
           </Link>
+          <Link to={""}>
+            <NewPostIcon />
+          </Link>
           <Link to={"/explore"}>
             <ExploreIcon />
           </Link>
@@ -43,7 +47,7 @@ export default function Navbar() {
               <TaggedIcon />
               Profile
             </SettingsMenuItem>
-            <SettingsMenuItem to={"/settings"}>
+            <SettingsMenuItem to={"/settings/edit"}>
               <SettingsIcon />
               Settings
             </SettingsMenuItem>

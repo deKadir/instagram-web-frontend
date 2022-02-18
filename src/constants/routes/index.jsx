@@ -31,7 +31,7 @@ const routes = [
     protected: false,
   },
   {
-    path: "/settings",
+    path: "/settings/:content",
     component: Settings,
     exact: false,
     protected: true,

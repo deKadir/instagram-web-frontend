@@ -11,7 +11,11 @@ export default function Wrapper() {
             key={index}
             exact={route.exact}
             path={route.path}
-            element={<route.component />}
+            element={
+              <>
+                <route.component />
+              </>
+            }
           />
         );
       })}
