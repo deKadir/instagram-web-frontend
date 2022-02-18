@@ -43,7 +43,7 @@ const routes = [
     protected: true,
   },
   {
-    path: "/profile",
+    path: "/profile/:content",
     component: Profile,
     exact: false,
     protected: true,

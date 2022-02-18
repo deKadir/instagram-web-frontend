@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 export default function SwitchAccount() {
   return (
     <div className={style.switch}>
-      <Link to={"/profile"}>
+      <Link to={"/profile/posts"}>
         <img alt="" src={profile} width="62px" height="62px" />
       </Link>
-      <Link to={"/profile"}>
+      <Link to={"/profile/posts"}>
         <p>kadir</p>
       </Link>
 
