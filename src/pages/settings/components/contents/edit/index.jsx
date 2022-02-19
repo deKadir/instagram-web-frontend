@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function EditProfile() {
+export default function Edit() {
   return <div>EditProfile</div>;
 }
