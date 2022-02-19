@@ -1,0 +1,26 @@
+@import "styles/global.module.scss";
+.security {
+  &_item {
+    padding: 2rem 0px;
+    span {
+      @include form_description;
+    }
+    h2 {
+      font-size: 2rem;
+      font-weight: 100;
+      margin-bottom: 1rem;
+    }
+    border-bottom: 1px solid $color-gray;
+    ul {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      li {
+        display: flex;
+        align-items: baseline;
+        gap: 20%;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

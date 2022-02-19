@@ -48,13 +48,17 @@
 }
 @mixin btn_primary {
   @include btn;
-  background-color: $color-secondary;
-  color: $color-white;
+  background-color: $color-secondary !important;
+  color: $color-white !important;
 }
 @mixin btn_secondary {
   @include btn;
   background-color: $color-white;
   border: $border;
+}
+@mixin btn_text {
+  @include btn;
+  color: $color-secondary;
 }
 @mixin menu_item {
   padding: 0.5rem 1rem;
@@ -76,4 +80,23 @@
   margin: 0 auto;
   box-sizing: border-box;
   margin-top: 1.25rem;
+}
+@mixin form_input {
+  @include input;
+  padding: 0.2rem 0.625rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+
+  &:focus {
+    outline: 1px solid $color-primary;
+  }
+}
+@mixin form_label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+@mixin form_description {
+  color: $color-gray;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }

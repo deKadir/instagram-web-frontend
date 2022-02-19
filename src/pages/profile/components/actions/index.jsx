@@ -1,12 +1,11 @@
 import { SettingsIcon } from "assets/icons";
 import { MoreIcon } from "assets/icons";
-import { SecondaryButton } from "components/buttons";
-import { PrimaryButton } from "components/buttons";
+import { ButtonPrimary, ButtonSecondary } from "components/buttons";
 import style from "./actions.module.scss";
 export function UserAction() {
   return (
     <div className={style.action}>
-      <PrimaryButton>Follow</PrimaryButton>
+      <ButtonPrimary>Follow</ButtonPrimary>
       <MoreIcon />
     </div>
   );
@@ -14,7 +13,7 @@ export function UserAction() {
 export function EditProfile() {
   return (
     <div className={style.action}>
-      <SecondaryButton>Edit Profile</SecondaryButton>
+      <ButtonSecondary>Edit Profile</ButtonSecondary>
       <SettingsIcon />
     </div>
   );

@@ -1,0 +1,33 @@
+@import "styles/global.module.scss";
+form {
+  .form_item {
+    display: flex;
+    margin-bottom: 2rem;
+    width: 100%;
+    label {
+      @include form_label;
+      width: 25%;
+      img {
+        border-radius: 50%;
+        width: 40%;
+      }
+    }
+    span {
+      @include form_description;
+    }
+    input,
+    textarea {
+      @include form_input;
+      width: 100%;
+    }
+    button {
+      @include btn_text;
+    }
+    div {
+      display: flex;
+      width: 60%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}

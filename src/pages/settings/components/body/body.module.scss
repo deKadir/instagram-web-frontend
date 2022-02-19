@@ -2,4 +2,5 @@
 .body {
   @include body;
   display: flex;
+  height: 85vh;
 }

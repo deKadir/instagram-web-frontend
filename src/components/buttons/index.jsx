@@ -6,7 +6,7 @@ export const Button = ({ children, style: _style, disabled = false }) => {
     </button>
   );
 };
-export const PrimaryButton = ({
+export const ButtonPrimary = ({
   children,
   style: _style,
   disabled = false,
@@ -17,7 +17,7 @@ export const PrimaryButton = ({
     </button>
   );
 };
-export const SecondaryButton = ({
+export const ButtonSecondary = ({
   children,
   style: _style,
   disabled = false,
@@ -28,6 +28,13 @@ export const SecondaryButton = ({
       disabled={disabled}
       className={style.button_secondary}
     >
+      {children}
+    </button>
+  );
+};
+export const ButtonText = ({ children, style: _style, disabled = false }) => {
+  return (
+    <button style={_style} disabled={disabled} className={style.button_text}>
       {children}
     </button>
   );

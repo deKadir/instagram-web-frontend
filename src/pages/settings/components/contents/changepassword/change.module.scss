@@ -1,0 +1,14 @@
+@import "styles/global.module.scss";
+form {
+  .form_item {
+    display: flex;
+    margin-bottom: 2rem;
+    label {
+      width: 25%;
+      @include form_label;
+    }
+    input {
+      @include form_input;
+    }
+  }
+}

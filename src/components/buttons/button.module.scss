@@ -7,4 +7,7 @@
   &_secondary {
     @include btn_secondary;
   }
+  &_text {
+    @include btn_text;
+  }
 }
