@@ -25,6 +25,7 @@ export default function Navbar() {
           <InstagramTextLogo />
         </Link>
         <SearchInput placeholder="Search" />
+
         <div className={style.navbar_container_icons}>
           <Link to={"/"}>
             <HomeIcon />

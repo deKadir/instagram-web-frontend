@@ -11,7 +11,7 @@ export default function Menu({ Toggle, children }) {
       }
       <div
         className={style.menu_toggle}
-        onClick={() => setTimeout(() => setActive(!active), 100)}
+        onClick={() => setTimeout(() => setActive(!active))}
       >
         {Toggle}
         {active && <div className={style.menu_items}>{children}</div>}

@@ -60,9 +60,14 @@
   @include btn;
   color: $color-secondary;
 }
+@mixin menu {
+  box-shadow: $shadow;
+  background-color: $color-white;
+  border-radius: 0.5rem;
+}
 @mixin menu_item {
   padding: 0.5rem 1rem;
-  background-color: $color-white;
+
   &:hover {
     background-color: $dark-white;
   }
@@ -99,4 +104,14 @@
   color: $color-gray;
   font-size: 0.85rem;
   margin-top: 0.5rem;
+}
+@mixin background_button {
+  cursor: default;
+  position: fixed;
+  width: 100vw;
+  left: 0;
+  z-index: 11px;
+  top: 0;
+  height: 100vh;
+  background-color: transparent;
 }
