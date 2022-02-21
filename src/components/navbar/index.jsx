@@ -19,6 +19,7 @@ import { NewPostIcon } from "assets/icons";
 import SettingsMenu, { SettingsMenuItem } from "components/menu/settings";
 import NotificationMenu from "components/menu/notifications";
 import { NotificationItem } from "components/menu/notifications";
+import { FollowRequest } from "components/menu/notifications";
 
 export default function Navbar() {
   return (
@@ -55,6 +56,7 @@ export default function Navbar() {
               <NotificationItem />
               <NotificationItem />
               <NotificationItem />
+              <FollowRequest />
             </NotificationMenu>
           </Menu>
           <Menu

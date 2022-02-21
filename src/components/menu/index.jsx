@@ -7,7 +7,12 @@ export default function Menu({ Toggle, children }) {
     <div className={style.menu}>
       {
         //button for disable menu when click somewhere
-        active && <button onClick={() => setActive(false)}></button>
+        active && (
+          <button
+            className={style.background_button}
+            onClick={() => setActive(false)}
+          ></button>
+        )
       }
       <div
         className={style.menu_toggle}

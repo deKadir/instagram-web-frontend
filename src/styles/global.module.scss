@@ -45,6 +45,7 @@
   font-size: 0.875rem;
   line-height: 1.125rem;
   font-weight: 600;
+  height: max-content;
 }
 @mixin btn_primary {
   @include btn;

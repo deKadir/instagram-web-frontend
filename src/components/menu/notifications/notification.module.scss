@@ -71,3 +71,34 @@
     }
   }
 }
+.follow_request {
+  @include menu_item;
+  display: flex;
+  align-items: center;
+  img {
+    width: 44px;
+    height: 44px;
+  }
+  &_container {
+    display: flex;
+    border: 1px solid $border-color;
+    border-inline: none;
+    width: 100%;
+    align-items: center;
+    margin-left: 1rem;
+    padding: 0.5rem 0px;
+    div {
+      width: 100%;
+    }
+    p {
+      padding: 0;
+    }
+    span {
+      color: $color-gray;
+      font-size: 14px;
+    }
+    button {
+      margin-left: 0.5rem;
+    }
+  }
+}

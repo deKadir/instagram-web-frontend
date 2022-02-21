@@ -2,7 +2,7 @@
 .menu {
   cursor: pointer;
 
-  button {
+  .background_button {
     @include background_button;
   }
   &_toggle {
