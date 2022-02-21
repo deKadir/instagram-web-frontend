@@ -1,0 +1,73 @@
+@import "styles/global.module.scss";
+.notification {
+  width: 500px;
+  img {
+    border-radius: 50%;
+  }
+  p {
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+  &_head {
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    @include menu_item;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    &_imgs {
+      display: flex;
+      img {
+        width: 2rem;
+        height: 2rem;
+        &:nth-child(2) {
+          margin-left: -1.5rem;
+          margin-top: 0.3rem;
+        }
+      }
+    }
+    &_body {
+      width: 100%;
+      margin-left: 2rem;
+
+      span {
+        color: $color-gray;
+        font-weight: 200;
+      }
+    }
+  }
+  &_menu {
+    @include menu;
+    height: 300px;
+    p {
+      padding: 0.5rem 0.5rem;
+    }
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+  &_item {
+    @include menu_item;
+    display: flex;
+    img {
+      width: 2.75rem;
+      height: 2.75rem;
+      &:last-child {
+        border-radius: 0;
+      }
+    }
+    &_body {
+      width: 100%;
+      padding: 0px 1rem;
+      display: flex;
+      p {
+        display: inline;
+        padding: 0;
+      }
+      small {
+        margin-left: 0.5rem;
+        color: $color-gray;
+      }
+    }
+  }
+}

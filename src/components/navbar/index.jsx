@@ -2,21 +2,24 @@ import React from "react";
 import style from "./navbar.module.scss";
 import { Link } from "react-router-dom";
 import profile from "assets/images/profile_img.jpg";
+import Styles from "constants/style";
 import {
   ExploreIcon,
   MessengerIcon,
   HeartIcon,
   HomeIcon,
   InstagramTextLogo,
+  TaggedIcon,
+  SaveIcon,
+  SettingsIcon,
 } from "assets/icons";
 import { SearchInput } from "./../inputs/index";
 import Menu from "components/menu";
-import SettingsMenuItem from "components/menu/settings";
-import { TaggedIcon } from "assets/icons";
-import { SettingsIcon } from "assets/icons";
-import Style from "constants/style";
-import { SaveIcon } from "assets/icons";
 import { NewPostIcon } from "assets/icons";
+import SettingsMenu, { SettingsMenuItem } from "components/menu/settings";
+import NotificationMenu from "components/menu/notifications";
+import { NotificationItem } from "components/menu/notifications";
+
 export default function Navbar() {
   return (
     <div className={style.navbar}>
@@ -39,29 +42,44 @@ export default function Navbar() {
           <Link to={"/explore"}>
             <ExploreIcon />
           </Link>
-          <Link to={""}>
-            <HeartIcon />
-          </Link>
 
-          <Menu Toggle={<img src={profile} alt="" />}>
-            <SettingsMenuItem to={"/profile/posts"}>
-              <TaggedIcon />
-              Profile
-            </SettingsMenuItem>
-            <SettingsMenuItem to={"/settings/edit"}>
-              <SettingsIcon />
-              Settings
-            </SettingsMenuItem>
-            <SettingsMenuItem to={"/profile/saved"}>
-              <SaveIcon />
-              Saved
-            </SettingsMenuItem>
-            <SettingsMenuItem
-              to={""}
-              style={{ borderTop: `1px solid ${Style.borderColor}` }}
-            >
-              logout
-            </SettingsMenuItem>
+          <Menu
+            Toggle={
+              <Link to={""}>
+                <HeartIcon />
+              </Link>
+            }
+          >
+            <NotificationMenu>
+              <NotificationItem />
+              <NotificationItem />
+              <NotificationItem />
+              <NotificationItem />
+            </NotificationMenu>
+          </Menu>
+          <Menu
+            Toggle={<img src={profile} alt="" className={style.profile_img} />}
+          >
+            <SettingsMenu>
+              <SettingsMenuItem to={"/profile/posts"}>
+                <TaggedIcon />
+                Profile
+              </SettingsMenuItem>
+              <SettingsMenuItem to={"/settings/edit"}>
+                <SettingsIcon />
+                Settings
+              </SettingsMenuItem>
+              <SettingsMenuItem to={"/profile/saved"}>
+                <SaveIcon />
+                Saved
+              </SettingsMenuItem>
+              <SettingsMenuItem
+                to={""}
+                style={{ borderTop: `1px solid ${Styles.borderColor}` }}
+              >
+                logout
+              </SettingsMenuItem>
+            </SettingsMenu>
           </Menu>
         </div>
       </div>
