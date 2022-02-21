@@ -8,12 +8,12 @@
   &_toggle {
     position: relative;
     display: block;
-    z-index: 3;
     .menu_items {
       @include menu;
       position: absolute;
       right: 0;
       margin-top: 0.8rem;
+      z-index: 10;
     }
   }
 }

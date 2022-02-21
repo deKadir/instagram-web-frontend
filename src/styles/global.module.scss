@@ -46,6 +46,7 @@
   line-height: 1.125rem;
   font-weight: 600;
   height: max-content;
+  position: relative;
 }
 @mixin btn_primary {
   @include btn;
@@ -111,7 +112,6 @@
   position: fixed;
   width: 100vw;
   left: 0;
-  z-index: 11px;
   top: 0;
   height: 100vh;
   background-color: transparent;

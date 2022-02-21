@@ -1,0 +1,101 @@
+@import "styles/global.module.scss";
+/*---------------add post component----------------*/
+.add_post {
+  background-color: white;
+  border-radius: 1rem;
+  h1 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 1.375rem;
+    font-weight: 100;
+  }
+}
+
+/*---------------upload component----------------*/
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &_head {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+  }
+  &_body {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    button {
+      margin-top: 1rem;
+    }
+  }
+}
+/*---------------upload detail component----------------*/
+.upload_detail {
+  display: flex;
+  flex-direction: column;
+  width: 750px;
+  box-sizing: border-box;
+  &_head {
+    display: flex;
+    padding: 0.5rem;
+    align-items: baseline;
+    justify-content: center;
+    h1 {
+      margin-left: auto;
+    }
+    button {
+      margin-left: auto;
+    }
+  }
+  &_body {
+    display: flex;
+    &_img {
+      width: 60%;
+    }
+    &_detail {
+      width: 100%;
+      border-top: 1px solid $border-color;
+      padding: 1rem;
+      div {
+        display: flex;
+        align-items: center;
+        p {
+          font-weight: 500;
+        }
+        img {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          margin-right: 0.5rem;
+        }
+      }
+      textarea {
+        @include input;
+
+        resize: none;
+        width: 100%;
+        height: 50%;
+        font-size: 1rem;
+        margin-top: 1rem;
+        padding: 0.5rem;
+      }
+      span {
+        width: 100%;
+        display: block;
+        text-align: right;
+        color: $color-gray;
+        font-size: 0.875rem;
+      }
+    }
+  }
+}

@@ -20,6 +20,8 @@ import SettingsMenu, { SettingsMenuItem } from "components/menu/settings";
 import NotificationMenu from "components/menu/notifications";
 import { NotificationItem } from "components/menu/notifications";
 import { FollowRequest } from "components/menu/notifications";
+import AddPost from "components/popup/addpost";
+import PopupContainer from "components/popup";
 
 export default function Navbar() {
   return (
@@ -37,9 +39,17 @@ export default function Navbar() {
           <Link to={"/messages"}>
             <MessengerIcon />
           </Link>
-          <Link to={""}>
-            <NewPostIcon />
-          </Link>
+
+          <PopupContainer
+            Toggle={
+              <Link to={""}>
+                <NewPostIcon />
+              </Link>
+            }
+          >
+            <AddPost />
+          </PopupContainer>
+
           <Link to={"/explore"}>
             <ExploreIcon />
           </Link>

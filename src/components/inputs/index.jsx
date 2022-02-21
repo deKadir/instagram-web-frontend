@@ -51,9 +51,14 @@ export const SearchInput = ({ placeholder = "Search", data = [] }) => {
     </div>
   );
 };
-export const FileInput = ({ placeholder = "" }) => {
+export const FileInput = ({ placeholder = "", multiple = false }) => {
   return (
-    <input type="file" placeholder={placeholder} className={style.file_input} />
+    <input
+      type="file"
+      placeholder={placeholder}
+      className={style.file_input}
+      multiple={multiple}
+    />
   );
 };
 export const Checkbox = ({ title }) => {
