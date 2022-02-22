@@ -1,32 +1,30 @@
-import React from "react";
-import profile from "assets/images/post_img.jpg";
+import React, { useState } from "react";
+
 import style from "./post.module.scss";
+
 import {
   HeartIcon,
   CommentIcon,
   ShareIcon,
   SaveIcon,
   EmojiIcon,
-  MoreIcon,
 } from "assets/icons";
 import { Input } from "components/inputs";
 import { Button } from "components/buttons";
+import PopupContainer from "components/popup";
+import PostContainer from "components/postcontainer";
+import PostHead from "./head";
+
 export default function Post({ children }) {
   return (
     <div className={style.post}>
-      <div className={style.post_owner}>
-        <div>
-          <img src={profile} alt="" />
-          <a>
-            <p>Kadir</p>
-          </a>
-        </div>
-        <MoreIcon />
-      </div>
+      <PostHead />
       <div className={style.post_content}>{children}</div>
       <div className={style.post_actions}>
         <HeartIcon />
-        <CommentIcon />
+        <PopupContainer Toggle={<CommentIcon />}>
+          <PostContainer />
+        </PopupContainer>
         <ShareIcon />
         <SaveIcon />
       </div>
@@ -42,7 +40,10 @@ export default function Post({ children }) {
         </p>
         <a>
           <p>View all 100 comments</p>
-        </a>
+        </a>{" "}
+        <PopupContainer>
+          <PostContainer />
+        </PopupContainer>
         <a>
           <small className={style.post_time}>1 hour ago</small>
         </a>
