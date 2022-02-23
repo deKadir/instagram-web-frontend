@@ -38,7 +38,6 @@ export default function PostContainer() {
         </div>
         <div className={postStyle.post_info}>
           <p>1.069 likes</p>
-
           <a>
             <small className={postStyle.post_time}>1 hour ago</small>
           </a>

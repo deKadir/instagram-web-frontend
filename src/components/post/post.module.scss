@@ -5,7 +5,6 @@
   margin-bottom: 1.5rem;
   border: $border;
   display: flex;
-
   flex-direction: column;
   p {
     font-weight: 600;
@@ -21,6 +20,10 @@
   &_owner {
     height: 58px;
     padding-inline: 1rem;
+    p {
+      color: $color-primary !important;
+      font-weight: 500 !important;
+    }
     &,
     div {
       display: flex;

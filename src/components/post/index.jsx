@@ -38,12 +38,16 @@ export default function Post({ children }) {
           </span>
           <small>More</small>
         </p>
-        <a>
-          <p>View all 100 comments</p>
-        </a>{" "}
-        <PopupContainer>
+        <PopupContainer
+          Toggle={
+            <a>
+              <p className={style.post_info_p}>View all 100 comments</p>
+            </a>
+          }
+        >
           <PostContainer />
         </PopupContainer>
+
         <a>
           <small className={style.post_time}>1 hour ago</small>
         </a>
