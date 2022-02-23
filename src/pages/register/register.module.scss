@@ -1,0 +1,44 @@
+@import "styles/global.module.scss";
+.register {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+
+  form {
+    width: 350px;
+    svg {
+      width: 200px;
+      height: 50px;
+      margin-bottom: 1rem;
+    }
+    border: $border;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    input {
+      background-color: $dark-white;
+      margin: 0.75rem 0rem;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      outline: none;
+      &::placeholder {
+        font-size: 0.75rem;
+      }
+    }
+    button {
+      margin: 1rem 0rem;
+    }
+  }
+  &_form_footer {
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-top: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: $border;
+  }
+}

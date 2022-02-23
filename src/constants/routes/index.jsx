@@ -5,6 +5,7 @@ import Register from "pages/register";
 import Settings from "pages/settings";
 import Messages from "pages/messages";
 import Profile from "pages/profile";
+import Reset from "./../../pages/reset/index";
 const routes = [
   {
     path: "/",
@@ -45,6 +46,12 @@ const routes = [
   {
     path: "/profile/:content",
     component: Profile,
+    exact: false,
+    protected: true,
+  },
+  {
+    path: "/reset",
+    component: Reset,
     exact: false,
     protected: true,
   },

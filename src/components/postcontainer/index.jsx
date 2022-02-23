@@ -27,10 +27,7 @@ export default function PostContainer() {
           <Comment />
           <Comment />
         </div>
-        <div
-          className={postStyle.post_actions}
-          style={{ marginLeft: "-0.5rem" }}
-        >
+        <div className={style.post_actions} style={{ marginLeft: "-0.5rem" }}>
           <HeartIcon />
           <CommentIcon />
           <ShareIcon />
@@ -42,7 +39,7 @@ export default function PostContainer() {
             <small className={postStyle.post_time}>1 hour ago</small>
           </a>
         </div>
-        <div className={postStyle.comment_form}>
+        <div className={style.comment_form}>
           <EmojiIcon />
           <Input placeholder="Add a comment..." />
           <Button disabled={true}>Post</Button>

@@ -1,0 +1,51 @@
+@import "styles/global.module.scss";
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &_body {
+    display: flex;
+    align-items: center;
+  }
+  &_form {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    form {
+      width: 100%;
+      svg {
+        width: 200px;
+        height: 50px;
+        margin-bottom: 1rem;
+      }
+      border: $border;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      input {
+        background-color: $dark-white;
+        margin: 0.75rem 0rem;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        outline: none;
+        &::placeholder {
+          font-size: 0.75rem;
+        }
+      }
+      button {
+        margin: 1rem 0rem;
+      }
+    }
+    &_footer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      margin-top: 1rem;
+      padding: 1rem;
+      box-sizing: border-box;
+      border: $border;
+    }
+  }
+}
