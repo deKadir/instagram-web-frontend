@@ -19,6 +19,9 @@
         height: 50px;
         margin-bottom: 1rem;
       }
+      label {
+        @include response_label;
+      }
       border: $border;
       padding: 2rem;
       display: flex;

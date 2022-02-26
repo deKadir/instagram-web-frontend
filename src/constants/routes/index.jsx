@@ -53,7 +53,7 @@ const routes = [
     path: "/reset",
     component: Reset,
     exact: false,
-    protected: true,
+    protected: false,
   },
 ];
 export default routes;

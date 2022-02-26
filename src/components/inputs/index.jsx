@@ -4,9 +4,24 @@ import { SearchItem } from "components/menu/search";
 import React, { useState } from "react";
 import style from "./input.module.scss";
 
-export const Input = ({ placeholder = "", type = "text" }) => {
+export const Input = ({
+  placeholder = "",
+  type = "text",
+  multiple = false,
+  value = "",
+  name = "",
+  onChange: _onChange = () => {},
+}) => {
   return (
-    <input type={type} placeholder={placeholder} className={style.input} />
+    <input
+      type={type}
+      placeholder={placeholder}
+      onChange={_onChange}
+      value={value}
+      name={name}
+      className={style.input}
+      multiple={multiple}
+    />
   );
 };
 export const SearchInput = ({ placeholder = "Search", data = [] }) => {
@@ -51,13 +66,22 @@ export const SearchInput = ({ placeholder = "Search", data = [] }) => {
     </div>
   );
 };
-export const FileInput = ({ placeholder = "", multiple = false }) => {
+export const FileInput = ({
+  placeholder = "",
+  multiple = false,
+  value = "",
+  name = "",
+  onChange: _onChange = () => {},
+}) => {
   return (
     <input
       type="file"
       placeholder={placeholder}
       className={style.file_input}
       multiple={multiple}
+      value={value}
+      onChange={_onChange}
+      name={name}
     />
   );
 };

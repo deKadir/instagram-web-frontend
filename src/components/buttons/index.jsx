@@ -1,3 +1,4 @@
+import Loading from "components/loading/Loading";
 import style from "./button.module.scss";
 export const Button = ({ children, style: _style, disabled = false }) => {
   return (
@@ -11,6 +12,7 @@ export const ButtonPrimary = ({
   style: _style,
   disabled = false,
   onClick = () => {},
+  loading = false,
 }) => {
   return (
     <button
@@ -18,8 +20,9 @@ export const ButtonPrimary = ({
       disabled={disabled}
       className={style.button_primary}
       onClick={onClick}
+      loading={false}
     >
-      {children}
+      {loading ? <Loading size="18" /> : children}
     </button>
   );
 };

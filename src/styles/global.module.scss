@@ -40,7 +40,7 @@
   }
 }
 @mixin btn {
-  padding: 6px 10px;
+  padding: 10px 10px;
   border-radius: $btn-border-radius;
   font-size: 0.875rem;
   line-height: 1.125rem;
@@ -115,4 +115,10 @@
   top: 0;
   height: 100vh;
   background-color: transparent;
+}
+
+@mixin response_label {
+  width: 100%;
+  text-align: center;
+  color: $color-danger;
 }

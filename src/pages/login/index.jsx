@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./login.module.scss";
 import phoneImg from "assets/images/phone_img.png";
 import Footer from "components/footer";
@@ -7,9 +7,36 @@ import { ButtonPrimary } from "components/buttons";
 import { InstagramTextLogo } from "assets/icons";
 import { ButtonText } from "components/buttons";
 import { useNavigate } from "react-router-dom";
+import { login } from "requests/AuthRequest";
+import { saveToken } from "redux/actions/authAction";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
+  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  let dispatch = useDispatch();
+
   let navigate = useNavigate();
+  const handleFormChange = (e) => {
+    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = (e) => {
+    setError("");
+    setLoading(true);
+    e.preventDefault();
+    login(loginForm)
+      .then((res) => {
+        setLoading(false);
+        dispatch(saveToken(res.data.token));
+        navigate("/");
+      })
+      .catch((er) => {
+        setError(er.response.data.message);
+        setLoading(false);
+      });
+  };
   return (
     <div className={style.login}>
       <div className={style.login_body}>
@@ -17,12 +44,27 @@ export default function Login() {
         <div className={style.login_form}>
           <form>
             <InstagramTextLogo />
-            <Input placeholder="Phone number,username or email" />
-            <Input placeholder="Password" />
-            <ButtonPrimary>Login</ButtonPrimary>
+            <Input
+              placeholder="Phone number,username or email"
+              name="username"
+              value={loginForm.username}
+              onChange={handleFormChange}
+            />
+            <Input
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={loginForm.password}
+              onChange={handleFormChange}
+            />
+            <ButtonPrimary onClick={handleFormSubmit} loading={loading}>
+              Login
+            </ButtonPrimary>
             <ButtonText onClick={() => navigate("/reset")}>
               Forgot password?
             </ButtonText>
+
+            <label>{error}</label>
           </form>
           <div className={style.login_form_footer}>
             Don't have account?{" "}
