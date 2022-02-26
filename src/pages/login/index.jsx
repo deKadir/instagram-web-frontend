@@ -45,7 +45,7 @@ export default function Login() {
           <form>
             <InstagramTextLogo />
             <Input
-              placeholder="Phone number,username or email"
+              placeholder="username or email"
               name="username"
               value={loginForm.username}
               onChange={handleFormChange}
@@ -57,7 +57,11 @@ export default function Login() {
               value={loginForm.password}
               onChange={handleFormChange}
             />
-            <ButtonPrimary onClick={handleFormSubmit} loading={loading}>
+            <ButtonPrimary
+              onClick={handleFormSubmit}
+              loading={loading}
+              disabled={!(loginForm.username && loginForm.password)}
+            >
               Login
             </ButtonPrimary>
             <ButtonText onClick={() => navigate("/reset")}>

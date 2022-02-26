@@ -4,4 +4,6 @@ import axios from "axios";
 export const login = (data) => {
   return axios.post(`${BASE_URL}${ApiConfig.auth.login}`, data);
 };
-export const register = () => {};
+export const register = (data) => {
+  return axios.post(`${BASE_URL}${ApiConfig.auth.register}`, data);
+};

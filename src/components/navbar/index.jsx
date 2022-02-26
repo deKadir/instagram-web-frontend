@@ -22,8 +22,10 @@ import { NotificationItem } from "components/menu/notifications";
 import { FollowRequest } from "components/menu/notifications";
 import AddPost from "components/popup/addpost";
 import PopupContainer from "components/popup";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
+  let username = useSelector((state) => state.user.username);
   return (
     <div className={style.navbar}>
       <div className={style.navbar_container}>
@@ -73,7 +75,7 @@ export default function Navbar() {
             Toggle={<img src={profile} alt="" className={style.profile_img} />}
           >
             <SettingsMenu>
-              <SettingsMenuItem to={"/profile/posts"}>
+              <SettingsMenuItem to={`/profile/${username}/posts`}>
                 <TaggedIcon />
                 Profile
               </SettingsMenuItem>
@@ -81,7 +83,7 @@ export default function Navbar() {
                 <SettingsIcon />
                 Settings
               </SettingsMenuItem>
-              <SettingsMenuItem to={"/profile/saved"}>
+              <SettingsMenuItem to={`/profile/${username}/saved`}>
                 <SaveIcon />
                 Saved
               </SettingsMenuItem>

@@ -4,11 +4,11 @@ import { TaggedIcon, SaveIcon, PostsIcon } from "assets/icons";
 import GridPosts from "components/gridPosts";
 import ThumbnailContainer from "components/post/thumbnail";
 import { ImageThumbnail } from "components/post/thumbnail";
-import { VideoThumbnail } from "components/post/thumbnail";
 
 import StartSharing from "../startSharing";
 import { Link, useParams } from "react-router-dom";
 import NoPost from "components/nopost";
+import { useSelector } from "react-redux";
 
 const navbarItems = [
   {
@@ -30,7 +30,7 @@ const navbarItems = [
 
 export default function ProfileContents() {
   let path = useParams()?.content;
-
+  let username = useSelector((state) => state.user.username);
   return (
     <div className={style.contents}>
       <div className={style.contents_navbar}>
@@ -38,7 +38,7 @@ export default function ProfileContents() {
           <Link
             key={key}
             className={style.contents_navbar_item}
-            to={`/profile/${item.path}`}
+            to={`/profile/${username}/${item.path}`}
           >
             {<item.icon />}
             {<p>{item.title}</p>}

@@ -7,5 +7,7 @@ export const ApiConfig = {
   },
   user: {
     getCurrentUser: "user/getCurrentUser",
+    getUserInfo: "user/getUserInfo",
+    follow: "user/follow",
   },
 };
