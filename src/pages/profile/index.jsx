@@ -4,7 +4,7 @@ import ProfileBody from "./components/body";
 
 export default function Profile() {
   return (
-    <div style={{ overflowY: "scroll" }}>
+    <div style={{ height: "101vh" }}>
       <Navbar />
       <ProfileBody />
     </div>

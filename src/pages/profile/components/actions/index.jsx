@@ -4,28 +4,31 @@ import { ButtonPrimary, ButtonSecondary } from "components/buttons";
 import style from "./actions.module.scss";
 import { Link } from "react-router-dom";
 import { follow } from "requests/UserRequest";
-import { useSelector } from "react-redux";
-export function UserAction({
-  following,
-  setFollowing,
-  userId,
-  loading,
-  setLoading,
-}) {
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { saveUserInfo } from "redux/actions/userAction";
+
+export function UserAction({ userId, userInfo, following, setFollowing }) {
+  let dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
-    setLoading(true);
+    setButtonLoading(true);
     follow(userId, token)
-      .then(() => {
+      .then((res) => {
         setFollowing(!following);
-        setLoading(false);
+        setButtonLoading(false);
+        dispatch(saveUserInfo({ ...userInfo, following: res.data.data }));
+
+        console.log(res.data.data);
       })
       .catch((error) => {
         console.log(error.response);
-        setLoading(false);
+        setButtonLoading(false);
       });
   };
+
   return (
     <div className={style.action}>
       {following ? (
@@ -33,12 +36,12 @@ export function UserAction({
           <ButtonSecondary style={{ marginRight: "0.5rem" }}>
             Message
           </ButtonSecondary>
-          <ButtonSecondary disabled={loading} onClick={handleClick}>
+          <ButtonSecondary disabled={buttonLoading} onClick={handleClick}>
             following
           </ButtonSecondary>
         </>
       ) : (
-        <ButtonPrimary disabled={loading} onClick={handleClick}>
+        <ButtonPrimary disabled={buttonLoading} onClick={handleClick}>
           Follow
         </ButtonPrimary>
       )}

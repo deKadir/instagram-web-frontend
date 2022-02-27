@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import style from "./popup.module.scss";
-export default function PopupContainer({ children, Toggle }) {
+export default function PopupContainer({ children, Toggle, access = true }) {
   const [active, setActive] = useState(false);
   return (
     <>
@@ -11,7 +11,7 @@ export default function PopupContainer({ children, Toggle }) {
       >
         {Toggle}
       </div>
-      {active && (
+      {active && access && (
         <div className={style.popup_body}>
           <button
             className={style.background_button}

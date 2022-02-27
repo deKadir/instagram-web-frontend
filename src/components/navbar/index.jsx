@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./navbar.module.scss";
 import { Link } from "react-router-dom";
-import profile from "assets/images/profile_img.jpg";
 import Styles from "constants/style";
 import {
   ExploreIcon,
@@ -23,9 +22,10 @@ import { FollowRequest } from "components/menu/notifications";
 import AddPost from "components/popup/addpost";
 import PopupContainer from "components/popup";
 import { useSelector } from "react-redux";
+import { getImage } from "helpers/image";
 
 export default function Navbar() {
-  let username = useSelector((state) => state.user.username);
+  let { username, profileImg } = useSelector((state) => state.user);
   return (
     <div className={style.navbar}>
       <div className={style.navbar_container}>
@@ -72,7 +72,13 @@ export default function Navbar() {
             </NotificationMenu>
           </Menu>
           <Menu
-            Toggle={<img src={profile} alt="" className={style.profile_img} />}
+            Toggle={
+              <img
+                src={getImage(profileImg)}
+                alt=""
+                className={style.profile_img}
+              />
+            }
           >
             <SettingsMenu>
               <SettingsMenuItem to={`/profile/${username}/posts`}>
