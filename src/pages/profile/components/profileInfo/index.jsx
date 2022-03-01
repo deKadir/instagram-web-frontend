@@ -19,7 +19,6 @@ export default function ProfileInfo({ user, setUser }) {
   const [following, setFollowing] = useState();
   let token = useSelector((state) => state.auth.token);
   let username = useParams().username;
-<<<<<<< HEAD
   useEffect(() => {
     //getUserInfo from local storage
     if (username === userInfo?.username) {
@@ -28,16 +27,6 @@ export default function ProfileInfo({ user, setUser }) {
         ...userInfo,
         followers: userInfo.followers.length,
         following: userInfo.following.length,
-=======
-
-  useEffect(() => {
-    setLoading(true);
-    if (username === userInfo?.username) {
-      setUser({
-        ...userInfo,
-        following: userInfo.following.length,
-        followers: userInfo.followers.length,
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
       });
       setLoading(false);
     } else {
@@ -46,7 +35,6 @@ export default function ProfileInfo({ user, setUser }) {
   }, [userInfo, username]);
 
   useEffect(() => {
-<<<<<<< HEAD
     //get userInfo from backend
     if (userInfo?.username !== username) {
       setLoading(true);
@@ -57,25 +45,11 @@ export default function ProfileInfo({ user, setUser }) {
           setFollowing(userInfo.following.find((u) => u.username === username));
         })
         .catch((er) => console.warn(er));
-=======
-    setLoading(true);
-    if (userInfo?.username !== username) {
-      getUserInfo(username)
-        .then((res) => {
-          setUser(res.data.data);
-          setLoading(false);
-        })
-        .catch((er) => console.log(er.response.data));
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
     } else {
       setLoading(false);
     }
   }, [username, following]);
-  useEffect(() => {
-    if (userInfo?.username !== username) {
-      setFollowing(userInfo.following.find((u) => u._id === user?._id));
-    }
-  }, [user]);
+
   return (
     <div className={style.profile}>
       <img src={getImage(userInfo?.profileImg)} alt="profile" />
@@ -115,39 +89,18 @@ export default function ProfileInfo({ user, setUser }) {
                     <span>followers</span>
                   </p>
                 }
-<<<<<<< HEAD
                 access={true}
-=======
-                access={
-                  !user?.privateStatus ||
-                  !!userInfo.following.find(
-                    (u) => u.username === user?.username
-                  )
-                }
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
               >
                 <UserList
                   title="followers"
                   method={getFollowers}
                   token={token}
                   userId={user?._id}
-<<<<<<< HEAD
                   type="follower"
                 />
               </PopupContainer>
               <PopupContainer
                 access={true}
-=======
-                />
-              </PopupContainer>
-              <PopupContainer
-                access={
-                  !user?.privateStatus ||
-                  !!userInfo.following.find(
-                    (u) => u.username === user?.username
-                  )
-                }
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
                 Toggle={
                   <p>
                     {user.following}
@@ -160,10 +113,7 @@ export default function ProfileInfo({ user, setUser }) {
                   method={getFollowings}
                   token={token}
                   userId={user?._id}
-<<<<<<< HEAD
                   type="following"
-=======
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
                 />
               </PopupContainer>
             </div>

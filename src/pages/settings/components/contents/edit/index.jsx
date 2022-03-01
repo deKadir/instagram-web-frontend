@@ -7,10 +7,7 @@ import { ButtonPrimary } from "components/buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserInfo } from "requests/UserRequest";
 import { saveUserInfo } from "redux/actions/userAction";
-<<<<<<< HEAD
 import { getImage } from "helpers/image";
-=======
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
 const responseInitial = { error: false, message: "" };
 let formInitial = {
   name: "",
@@ -78,11 +75,7 @@ export default function Edit() {
       <form>
         <div className={style.form_item}>
           <label>
-<<<<<<< HEAD
             <img src={getImage(userInfo?.profileImg)} alt="profile" />
-=======
-            <img src={profile} alt="profile" />
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
           </label>
           <div>
             <Button>Change your profile photo</Button>

@@ -15,11 +15,8 @@ export const ApiConfig = {
   },
   post: {
     getUserPosts: "post/userPosts",
-<<<<<<< HEAD
     upload: "post/upload",
     postFeed: "post/postFeed",
     getPost: "post/getPost",
-=======
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
   },
 };

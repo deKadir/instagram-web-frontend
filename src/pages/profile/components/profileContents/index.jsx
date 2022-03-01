@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { getUserPosts } from "requests/PostRequest";
-=======
-import getUserPosts from "requests/PostRequest";
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
 import React, { useEffect, useState } from "react";
 import style from "./contents.module.scss";
 import { TaggedIcon, SaveIcon, PostsIcon } from "assets/icons";
@@ -13,7 +9,6 @@ import StartSharing from "../startSharing";
 import { Link, useParams } from "react-router-dom";
 import NoPost from "components/nopost";
 import { useSelector } from "react-redux";
-import { VideoThumbnail } from "components/post/thumbnail";
 
 const navbarItems = [
   {
@@ -38,7 +33,6 @@ export default function ProfileContents({ user }) {
   let { content, username: pathUsername } = useParams();
   let { username } = useSelector((state) => state.user);
   let token = useSelector((state) => state.auth.token);
-<<<<<<< HEAD
   const [scrollEnd, setScrollEnd] = useState(false);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
@@ -69,18 +63,6 @@ export default function ProfileContents({ user }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [page]);
 
-=======
-  const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    console.log(user?._id);
-    getUserPosts(token, user?._id)
-      .then((res) => {
-        setPosts(res.data.data);
-        console.log(res.data.data);
-      })
-      .catch((err) => console.log(err.response));
-  }, [user]);
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
   return (
     <div className={style.contents}>
       <div className={style.contents_navbar}>
@@ -100,7 +82,6 @@ export default function ProfileContents({ user }) {
       </div>
 
       {content === "posts" && (
-<<<<<<< HEAD
         <GridPosts>
           {posts?.map((post, index) => {
             return (
@@ -128,26 +109,6 @@ export default function ProfileContents({ user }) {
           ))}
         </GridPosts> */
       }
-=======
-        <GridPosts>
-          {posts?.map((post, index) => (
-            <ImageThumbnail photos={post.photos[0]} key={index} />
-          ))}
-          <VideoThumbnail />
-        </GridPosts>
-      )}
-      {content === "saved" && username === pathUsername && (
-        <GridPosts>
-          {posts?.map((post, index) => (
-            <ImageThumbnail
-              likes={post.likes.length}
-              photos={post.photos[0]}
-              key={index}
-            />
-          ))}
-        </GridPosts>
-      )}
->>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
       {content === "tagged" && <NoPost />}
     </div>
   );
