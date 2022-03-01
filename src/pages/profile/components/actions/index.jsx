@@ -17,11 +17,8 @@ export function UserAction({ userId, userInfo, following, setFollowing }) {
     setButtonLoading(true);
     follow(userId, token)
       .then((res) => {
-        setFollowing(!following);
         setButtonLoading(false);
-        dispatch(saveUserInfo({ ...userInfo }));
-
-        console.log(res.data.data);
+        dispatch(saveUserInfo({ ...userInfo, following: res.data.data }));
       })
       .catch((error) => {
         console.warn(error.response);

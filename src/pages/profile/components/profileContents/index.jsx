@@ -41,7 +41,6 @@ export default function ProfileContents({ user }) {
       getUserPosts(token, user?._id, `?page=${page}&limit=4`)
         .then((res) => {
           setPosts([...posts, ...res.data.data]);
-          console.log(res);
         })
         .catch((err) => console.log(err.response));
     }

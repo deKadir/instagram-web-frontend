@@ -42,14 +42,15 @@ export default function ProfileInfo({ user, setUser }) {
         .then((res) => {
           setUser({ ...res.data.data });
           setLoading(false);
-          setFollowing(userInfo.following.find((u) => u.username === username));
         })
         .catch((er) => console.warn(er));
     } else {
       setLoading(false);
     }
   }, [username, following]);
-
+  useEffect(() => {
+    setFollowing(!!userInfo?.following.find((u) => u.username === username));
+  }, [userInfo]);
   return (
     <div className={style.profile}>
       <img src={getImage(userInfo?.profileImg)} alt="profile" />
