@@ -19,12 +19,20 @@ export function UserAction({ userId, userInfo, following, setFollowing }) {
       .then((res) => {
         setFollowing(!following);
         setButtonLoading(false);
+<<<<<<< HEAD
         dispatch(saveUserInfo({ ...userInfo }));
+=======
+        dispatch(saveUserInfo({ ...userInfo, following: res.data.data }));
+>>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
 
         console.log(res.data.data);
       })
       .catch((error) => {
+<<<<<<< HEAD
         console.warn(error.response);
+=======
+        console.log(error.response);
+>>>>>>> 00f5158461c4b45e53ff8e466bc5d2d40eb2f451
         setButtonLoading(false);
       });
   };
