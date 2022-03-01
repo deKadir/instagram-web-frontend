@@ -61,14 +61,28 @@
     display: flex;
     &_img {
       width: 60%;
+      height: 500px;
+      position: relative;
+      background-color: #000;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      svg {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
     }
     &_detail {
-      width: 100%;
+      width: 40%;
       border-top: 1px solid $border-color;
       padding: 1rem;
       div {
         display: flex;
         align-items: center;
+
         p {
           font-weight: 500;
         }

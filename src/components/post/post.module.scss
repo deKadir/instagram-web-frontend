@@ -57,21 +57,30 @@
   }
   &_info {
     padding-inline: 1rem;
-    p {
+    width: 100%;
+    text-overflow: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    div {
+      p {
+        &:last-child {
+          color: $color-gray;
+          font-weight: 400;
+          line-height: 1.5rem;
+        }
+      }
       span {
-        font-weight: 400;
-      }
-      small {
-        margin-left: 5px;
-        @include active;
-      }
-      &:last-child {
-        color: $color-gray;
-        font-weight: 400;
-        line-height: 1.5rem;
+        text-overflow: ellipsis;
       }
     }
+
     margin-bottom: 1rem;
+  }
+  span {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
   }
   &_time {
     letter-spacing: 0.2px;

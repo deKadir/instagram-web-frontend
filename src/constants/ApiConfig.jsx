@@ -9,5 +9,14 @@ export const ApiConfig = {
     getCurrentUser: "user/getCurrentUser",
     getUserInfo: "user/getUserInfo",
     follow: "user/follow",
+    update: "user/edit",
+    followers: "user/getFollowers",
+    following: "user/getFollowings",
+  },
+  post: {
+    getUserPosts: "post/userPosts",
+    upload: "post/upload",
+    postFeed: "post/postFeed",
+    getPost: "post/getPost",
   },
 };

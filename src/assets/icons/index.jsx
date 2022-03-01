@@ -643,7 +643,7 @@ export const VideoIcon = () => {
   );
 };
 
-export const CloseIcon = () => {
+export const CloseIcon = ({ onClick = () => {} }) => {
   return (
     <svg
       aria-label="Close"
@@ -654,6 +654,7 @@ export const CloseIcon = () => {
       role="img"
       viewBox="0 0 24 24"
       width="16"
+      onClick={onClick}
     >
       <polyline
         fill="none"

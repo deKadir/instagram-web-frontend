@@ -7,14 +7,25 @@ import { EmojiIcon, ShareIcon, HeartIcon, SaveIcon } from "assets/icons";
 import postStyle from "components/post/post.module.scss";
 import Comment from "components/comment/index";
 import { CommentIcon } from "assets/icons";
-export default function PostContainer() {
+import { useEffect, useState } from "react";
+import { getPost } from "requests/PostRequest";
+import { useSelector } from "react-redux";
+import { getImage } from "helpers/image";
+export default function PostContainer({ postId }) {
+  let token = useSelector((state) => state.auth.token);
+  const [post, setPost] = useState();
+  useEffect(() => {
+    getPost(token, postId).then((res) => setPost(res.data.data));
+  }, []);
+
   return (
     <div className={style.post}>
       <div className={style.post_container}>
-        <img src={profile} />
+        <img src={getImage(post?.photos[0])} />
       </div>
       <div className={style.post_detail}>
-        <PostHead />
+        <PostHead user={post?.userId} />
+        <p style={{ padding: "0.5rem 1rem" }}>{post?.description}</p>
         <div className={style.post_detail_body}>
           <Comment />
           <Comment />
@@ -35,6 +46,7 @@ export default function PostContainer() {
         </div>
         <div className={postStyle.post_info}>
           <p>1.069 likes</p>
+
           <a>
             <small className={postStyle.post_time}>1 hour ago</small>
           </a>

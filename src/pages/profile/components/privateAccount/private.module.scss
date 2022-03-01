@@ -1,0 +1,9 @@
+@import "styles/global.module.scss";
+.private_account {
+  border-top: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 3rem;
+}

@@ -14,30 +14,44 @@ import { Button } from "components/buttons";
 import PopupContainer from "components/popup";
 import PostContainer from "components/postcontainer";
 import PostHead from "./head";
+import { useNavigate } from "react-router-dom";
 
-export default function Post({ children }) {
+export default function Post({ children, post }) {
+  const [fullDescription, setFullDescription] = useState(false);
+  let navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/profile/${post?.userId?.username}/posts`);
+  };
+
   return (
     <div className={style.post}>
-      <PostHead />
+      <PostHead user={post?.userId} />
       <div className={style.post_content}>{children}</div>
       <div className={style.post_actions}>
         <HeartIcon />
         <PopupContainer Toggle={<CommentIcon />}>
-          <PostContainer />
+          <PostContainer postId={post?._id} />
         </PopupContainer>
         <ShareIcon />
         <SaveIcon />
       </div>
       <div className={style.post_info}>
-        <p>1.069 likes</p>
-        <p>
-          kadir{" "}
+        <p>{post?.likes?.length} like</p>
+        <div>
+          <p>
+            {post?.userId?.username}
+
+            {post?.description?.length > 60 && !fullDescription && (
+              <small onClick={() => setFullDescription(true)}>More</small>
+            )}
+          </p>
           <span>
-            Imperdiet in sit rhoncus, eleifend tellus augue lectus potenti
-            pellentesque...
+            {fullDescription
+              ? post?.description
+              : post?.description?.substring(0, 60)}
           </span>
-          <small>More</small>
-        </p>
+        </div>
+
         <PopupContainer
           Toggle={
             <a>
@@ -45,7 +59,7 @@ export default function Post({ children }) {
             </a>
           }
         >
-          <PostContainer />
+          <PostContainer postId={post?._id} />
         </PopupContainer>
 
         <a>

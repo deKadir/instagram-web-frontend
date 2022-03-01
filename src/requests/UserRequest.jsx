@@ -23,3 +23,24 @@ export const follow = (userId, token) => {
     }
   );
 };
+export const updateUserInfo = (token, data) => {
+  return axios.post(`${BASE_URL}${ApiConfig.user.update}`, data, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const getFollowers = (token, userId) => {
+  return axios.get(`${BASE_URL}${ApiConfig.user.followers}/${userId}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const getFollowings = (token, userId) => {
+  return axios.get(`${BASE_URL}${ApiConfig.user.following}/${userId}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

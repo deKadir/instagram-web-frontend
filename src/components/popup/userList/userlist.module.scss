@@ -1,0 +1,40 @@
+@import "styles/global.module.scss";
+.list {
+  background-color: $color-white;
+  width: 350px;
+  height: 400px;
+  border-radius: 0.5rem;
+  &_head {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid $border-color;
+  }
+  &_items {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 350px;
+  }
+  &_item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    img {
+      width: 2rem;
+      height: 2rem;
+      margin: 0;
+      margin-right: 1rem;
+    }
+    &_info {
+      width: 100%;
+    }
+    span {
+      color: $color-gray;
+    }
+    span,
+    p {
+      font-size: 1rem;
+    }
+  }
+}

@@ -1,8 +1,8 @@
-import React from "react";
+import { getUserPosts } from "requests/PostRequest";
+import React, { useEffect, useState } from "react";
 import style from "./contents.module.scss";
 import { TaggedIcon, SaveIcon, PostsIcon } from "assets/icons";
 import GridPosts from "components/gridPosts";
-import ThumbnailContainer from "components/post/thumbnail";
 import { ImageThumbnail } from "components/post/thumbnail";
 
 import StartSharing from "../startSharing";
@@ -15,11 +15,13 @@ const navbarItems = [
     title: "Posts",
     path: "posts",
     icon: PostsIcon,
+    protected: false,
   },
   {
     title: "Saved",
     icon: SaveIcon,
     path: "saved",
+    protected: true,
   },
   {
     title: "Tagged",
@@ -27,40 +29,87 @@ const navbarItems = [
     path: "tagged",
   },
 ];
+export default function ProfileContents({ user }) {
+  let { content, username: pathUsername } = useParams();
+  let { username } = useSelector((state) => state.user);
+  let token = useSelector((state) => state.auth.token);
+  const [scrollEnd, setScrollEnd] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    if (user?._id) {
+      getUserPosts(token, user?._id, `?page=${page}&limit=4`)
+        .then((res) => {
+          setPosts([...posts, ...res.data.data]);
+          console.log(res);
+        })
+        .catch((err) => console.log(err.response));
+    }
+  }, [user, page]);
 
-export default function ProfileContents() {
-  let path = useParams()?.content;
-  let username = useSelector((state) => state.user.username);
+  useEffect(() => {
+    function onScroll() {
+      if (
+        this.document.documentElement.scrollHeight ===
+        window.pageYOffset + this.window.innerHeight
+      ) {
+        setScrollEnd(true);
+        setPage(page + 1);
+      } else {
+        setScrollEnd(false);
+      }
+    }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [page]);
+
   return (
     <div className={style.contents}>
       <div className={style.contents_navbar}>
-        {navbarItems.map((item, key) => (
-          <Link
-            key={key}
-            className={style.contents_navbar_item}
-            to={`/profile/${username}/${item.path}`}
-          >
-            {<item.icon />}
-            {<p>{item.title}</p>}
-          </Link>
-        ))}
+        {navbarItems.map(
+          (item, key) =>
+            (!item.protected || pathUsername === username) && (
+              <Link
+                key={key}
+                className={style.contents_navbar_item}
+                to={`/profile/${pathUsername}/${item.path}`}
+              >
+                {<item.icon />}
+                {<p>{item.title}</p>}
+              </Link>
+            )
+        )}
       </div>
 
-      {path === "posts" && <StartSharing />}
-      {path === "saved" && (
+      {content === "posts" && (
         <GridPosts>
-          <ThumbnailContainer>
-            <ImageThumbnail />
-          </ThumbnailContainer>
-          <ThumbnailContainer>
-            <ImageThumbnail />
-          </ThumbnailContainer>
-          <ThumbnailContainer>
-            <ImageThumbnail />
-          </ThumbnailContainer>
+          {posts?.map((post, index) => {
+            return (
+              <ImageThumbnail
+                photo={post.photos[0]}
+                single={post.photos.length > 1}
+                key={index}
+              />
+            );
+          })}
         </GridPosts>
       )}
-      {path === "tagged" && <NoPost />}
+      {
+        content === "saved" && username === pathUsername && (
+          <div>hello world</div>
+        )
+
+        /* <GridPosts>
+          {posts?.map((post, index) => (
+            <ImageThumbnail
+              likes={post.likes.length}
+              photo={post?.photos[0]}
+              key={index}
+            />
+          ))}
+        </GridPosts> */
+      }
+      {content === "tagged" && <NoPost />}
     </div>
   );
 }

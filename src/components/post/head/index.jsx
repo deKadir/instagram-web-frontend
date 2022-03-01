@@ -1,15 +1,21 @@
 import React from "react";
 import style from "../post.module.scss";
-import profile from "assets/images/post_img.jpg";
+
 import { MoreIcon } from "assets/icons";
-export default function PostHead() {
+import { getImage } from "helpers/image";
+import { useNavigate } from "react-router-dom";
+export default function PostHead({ user }) {
+  let navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/profile/${user?.username}/posts`);
+  };
+
   return (
     <div className={style.post_owner}>
       <div>
-        <img src={profile} alt="" />
-        <a>
-          <p>Kadir</p>
-        </a>
+        <img onClick={handleClick} src={getImage(user?.profileImg)} alt="" />
+
+        <p onClick={handleClick}>{user?.username}</p>
       </div>
       <MoreIcon />
     </div>
