@@ -16,7 +16,7 @@ import { getFollowings } from "requests/UserRequest";
 export default function ProfileInfo({ user, setUser }) {
   let userInfo = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
-  const [following, setFollowing] = useState();
+
   let token = useSelector((state) => state.auth.token);
   let username = useParams().username;
   useEffect(() => {
@@ -25,35 +25,70 @@ export default function ProfileInfo({ user, setUser }) {
       setLoading(true);
       setUser({
         ...userInfo,
-        followers: userInfo.followers.length,
-        following: userInfo.following.length,
       });
       setLoading(false);
     } else {
       setLoading(false);
     }
-  }, [userInfo, username]);
+  }, [username]);
 
   useEffect(() => {
     //get userInfo from backend
     if (userInfo?.username !== username) {
       setLoading(true);
-      getUserInfo(username)
+      getUserInfo(username, token)
         .then((res) => {
           setUser({ ...res.data.data });
           setLoading(false);
         })
-        .catch((er) => console.warn(er));
+        .catch((er) => console.warn(er.response));
     } else {
       setLoading(false);
     }
-  }, [username, following]);
+  }, [username]);
+  useEffect(() => {}, [userInfo]);
+  const [userList, setUserList] = useState([]);
+  const [listPopup, setListPopup] = useState({
+    type: "followers",
+    active: false,
+  });
   useEffect(() => {
-    setFollowing(!!userInfo?.following.find((u) => u.username === username));
-  }, [userInfo]);
+    console.log(listPopup);
+    setUserList([]);
+    if (listPopup.type === "following" && listPopup.active) {
+      getFollowings(token, user?._id)
+        .then((res) => {
+          setUserList(
+            res.data.data.map((u) => {
+              console.log(u);
+              return {
+                ...u.following,
+                isFollowing: u.isFollowing,
+              };
+            })
+          );
+        })
+        .catch((e) => console.log(e.data));
+    }
+    if (listPopup.type === "followers" && listPopup.active) {
+      getFollowers(token, user?._id)
+        .then((res) => {
+          console.log(res.data);
+          setUserList([
+            res.data.data.map((u) => {
+              console.log(u);
+              return {
+                user: { ...u.follower, isFollowing: u.follower.isFollowing },
+              };
+            }),
+          ]);
+        })
+        .catch((e) => console.log(e.response));
+    }
+  }, [listPopup]);
   return (
     <div className={style.profile}>
-      <img src={getImage(userInfo?.profileImg)} alt="profile" />
+      <img src={getImage(user?.profileImg)} alt="profile" />
 
       <div className={style.profile_info}>
         {!user || loading ? (
@@ -71,12 +106,7 @@ export default function ProfileInfo({ user, setUser }) {
               {username === userInfo.username ? (
                 <EditProfile />
               ) : (
-                <UserAction
-                  userId={user?._id}
-                  userInfo={userInfo}
-                  following={following}
-                  setFollowing={setFollowing}
-                />
+                <UserAction user={user} setUser={setUser} userInfo={userInfo} />
               )}
             </div>
             <div className={style.profile_user}>
@@ -85,7 +115,11 @@ export default function ProfileInfo({ user, setUser }) {
               </p>
               <PopupContainer
                 Toggle={
-                  <p>
+                  <p
+                    onClick={() =>
+                      setListPopup({ type: "followers", active: true })
+                    }
+                  >
                     {user.followers}
                     <span>followers</span>
                   </p>
@@ -94,16 +128,18 @@ export default function ProfileInfo({ user, setUser }) {
               >
                 <UserList
                   title="followers"
-                  method={getFollowers}
-                  token={token}
-                  userId={user?._id}
-                  type="follower"
+                  list={userList}
+                  setList={setUserList}
                 />
               </PopupContainer>
               <PopupContainer
                 access={true}
                 Toggle={
-                  <p>
+                  <p
+                    onClick={() =>
+                      setListPopup({ type: "following", active: true })
+                    }
+                  >
                     {user.following}
                     <span>following</span>
                   </p>
@@ -111,10 +147,8 @@ export default function ProfileInfo({ user, setUser }) {
               >
                 <UserList
                   title="Following"
-                  method={getFollowings}
-                  token={token}
-                  userId={user?._id}
-                  type="following"
+                  setList={setUserList}
+                  list={userList}
                 />
               </PopupContainer>
             </div>

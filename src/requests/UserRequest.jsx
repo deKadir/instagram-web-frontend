@@ -8,8 +8,12 @@ export const getActiveUser = (token) => {
     },
   });
 };
-export const getUserInfo = (username) => {
-  return axios.get(`${BASE_URL}${ApiConfig.user.getUserInfo}/${username}`);
+export const getUserInfo = (username, token) => {
+  return axios.get(`${BASE_URL}${ApiConfig.user.getUserInfo}/${username}`, {
+    headers: {
+      authorization: `bearer ${token}`,
+    },
+  });
 };
 
 export const follow = (userId, token) => {
@@ -43,4 +47,17 @@ export const getFollowings = (token, userId) => {
       authorization: `Bearer ${token}`,
     },
   });
+};
+
+export const updateProfielImg = (token, profileImg) => {
+  return axios.post(
+    `${BASE_URL}${ApiConfig.user.updateProfileImg}`,
+    profileImg,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    }
+  );
 };

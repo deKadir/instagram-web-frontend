@@ -33,3 +33,10 @@ export function getPost(token, postId) {
     },
   });
 }
+export function getPostLikes(token, postId) {
+  return axios.get(`${BASE_URL}${ApiConfig.post.getPostLikes}/${postId}`, {
+    headers: {
+      authorization: `bearer ${token}`,
+    },
+  });
+}

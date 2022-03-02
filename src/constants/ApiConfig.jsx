@@ -12,11 +12,17 @@ export const ApiConfig = {
     update: "user/edit",
     followers: "user/getFollowers",
     following: "user/getFollowings",
+    updateProfileImg: "user/updateProfileImg",
   },
   post: {
     getUserPosts: "post/userPosts",
     upload: "post/upload",
     postFeed: "post/postFeed",
     getPost: "post/getPost",
+    getPostLikes: "like/postLikes",
+  },
+  comment: {
+    add: "comment/add",
+    comments: "comment/comments",
   },
 };

@@ -1,6 +1,5 @@
-import { Input } from "components/inputs";
+import { FileInput, Input } from "components/inputs";
 import React, { useEffect, useState } from "react";
-import profile from "assets/images/profile_img.jpg";
 import style from "./edit.module.scss";
 import { Button } from "components/buttons";
 import { ButtonPrimary } from "components/buttons";
@@ -8,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserInfo } from "requests/UserRequest";
 import { saveUserInfo } from "redux/actions/userAction";
 import { getImage } from "helpers/image";
+import { updateProfielImg } from "requests/UserRequest";
 const responseInitial = { error: false, message: "" };
 let formInitial = {
   name: "",
@@ -20,6 +20,8 @@ export default function Edit() {
   const [response, setResponse] = useState(responseInitial);
   let dispatch = useDispatch();
   const [userForm, setUserForm] = useState(formInitial);
+  const [profileImg, setProfileImg] = useState();
+  const formData = new FormData();
   const token = useSelector((state) => state.auth.token);
   const handleFormChange = (e) => {
     setUserForm({ ...userForm, [e.target.name]: e.target.value });
@@ -30,12 +32,14 @@ export default function Edit() {
       username: userInfo?.username,
       bio: userInfo?.bio,
       email: userInfo?.email,
+      profileImg: userInfo?.profileImg,
     });
   }, [userInfo]);
   const handleFormSubmit = (e) => {
     setResponse(responseInitial);
     e.preventDefault();
     const fields = [];
+
     for (var field in userForm) {
       if (userForm[field] === "" && field !== "bio") {
         fields.push(field);
@@ -45,10 +49,21 @@ export default function Edit() {
     if (fields.length) {
       setResponse({ error: true, message: `${fields} cannot be empty` });
     } else {
+      if (formData.get("profileImg")) {
+        updateProfielImg(token, formData)
+          .then((res) => {
+            dispatch(
+              saveUserInfo({ ...userForm, profileImg: res.data.profileImg })
+            );
+            console.log("calisti");
+          })
+          .catch((e) => console.log(e.response));
+      }
+
       updateUserInfo(token, userForm)
         .then((res) => {
           if (res.data.data) {
-            dispatch(saveUserInfo({ ...userInfo, ...res.data.data }));
+            dispatch(saveUserInfo({ ...userForm, ...res.data.data }));
             setResponse({ error: false, message: "uploaded successfully." });
           } else {
             setResponse({ error: true, message: "an error occured" });
@@ -78,7 +93,14 @@ export default function Edit() {
             <img src={getImage(userInfo?.profileImg)} alt="profile" />
           </label>
           <div>
-            <Button>Change your profile photo</Button>
+            <Button>
+              Change your profile photo{" "}
+              <FileInput
+                onChange={(e) => {
+                  formData.append("profileImg", e.target.files[0]);
+                }}
+              />
+            </Button>
           </div>
         </div>
         <div className={style.form_item}>

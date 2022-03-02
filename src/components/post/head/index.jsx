@@ -13,7 +13,12 @@ export default function PostHead({ user }) {
   return (
     <div className={style.post_owner}>
       <div>
-        <img onClick={handleClick} src={getImage(user?.profileImg)} alt="" />
+        <img
+          onClick={handleClick}
+          src={getImage(user?.profileImg)}
+          alt=""
+          style={{ "object-fit": " cover" }}
+        />
 
         <p onClick={handleClick}>{user?.username}</p>
       </div>

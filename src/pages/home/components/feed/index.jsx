@@ -5,7 +5,7 @@ import style from "./feed.module.scss";
 export default function Feed() {
   return (
     <div className={style.feed}>
-      <Stories />
+      {/* <Stories /> */}
       <HomePosts />
     </div>
   );

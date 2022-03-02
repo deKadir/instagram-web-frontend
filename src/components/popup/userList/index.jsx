@@ -12,35 +12,48 @@ import { useNavigate } from "react-router-dom";
 
 export default function UserList({
   title = "",
-
-  method = () => {},
-  token = "",
-  userId = "",
+  list = [],
+  setList = () => {},
 }) {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   let userInfo = useSelector((state) => state.user);
   let dispatch = useDispatch();
   let navigate = useNavigate();
-  useEffect(() => {
-    method(token, userId)
+  let token = useSelector((state) => state.auth.token);
+  const handleFollow = (userId) => {
+    setLoading(true);
+    follow(userId, token)
       .then((res) => {
-        setData(res.data.data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-  const handleFollow = (_userId) => {
-    follow(_userId, token)
-      .then((res) => {
-        if (!res.data.error) {
-          dispatch(saveUserInfo({ ...userInfo, following: res.data.data }));
-          setTimeout(() => {
-            setData([...data]);
-          }, 100);
+        if (res.data.message === "follow") {
+          dispatch(
+            saveUserInfo({ ...userInfo, following: userInfo?.following + 1 })
+          );
+          setList(
+            list.map((item) => {
+              if (item._id === userId) {
+                item.isFollowing = true;
+              }
+              return item;
+            })
+          );
+          setLoading(false);
+        } else {
+          dispatch(
+            saveUserInfo({ ...userInfo, following: userInfo?.following - 1 })
+          );
+          setList(
+            list.map((item) => {
+              if (item._id === userId) {
+                item.isFollowing = false;
+              }
+              return item;
+            })
+          );
+          setLoading(false);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response));
   };
 
   return (
@@ -49,23 +62,7 @@ export default function UserList({
         <h4>{title}</h4>
       </div>
       <section className={style.list_items}>
-        {loading && (
-          <div className={style.list_item}>
-            <Skeleton variant="circular" width={40} height={40} />
-            <div className={style.list_item_info}>
-              <p>
-                <Skeleton variant="text" />
-              </p>
-
-              <p>
-                {" "}
-                <Skeleton variant="text" />
-              </p>
-            </div>
-          </div>
-        )}
-
-        {data.map((user, key) => {
+        {list.map((user, key) => {
           return (
             <div className={style.list_item} key={key}>
               <img src={getImage(user?.profileImg)} alt="profile img" />
@@ -79,14 +76,19 @@ export default function UserList({
                   {user?.name}
                 </span>
               </div>
-
-              {userInfo.following.find((u) => u._id === user._id) ? (
-                <ButtonSecondary onClick={() => handleFollow(user._id)}>
+              {user?.isFollowing ? (
+                <ButtonSecondary
+                  onClick={() => handleFollow(user._id)}
+                  disabled={loading}
+                >
                   Following
                 </ButtonSecondary>
               ) : (
-                user._id !== userInfo._id && (
-                  <ButtonPrimary onClick={() => handleFollow(user._id)}>
+                userInfo._id !== user?._id && (
+                  <ButtonPrimary
+                    onClick={() => handleFollow(user?._id)}
+                    disabled={loading}
+                  >
                     Follow
                   </ButtonPrimary>
                 )

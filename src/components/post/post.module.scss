@@ -35,11 +35,15 @@
       height: 32px;
       border-radius: 50%;
       cursor: pointer;
+      object-fit: cover;
       margin-right: 14px;
     }
   }
   &_content {
-    object-fit: contain;
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
     width: 100%;
   }
   &_actions {
@@ -63,13 +67,6 @@
     flex-direction: column;
     box-sizing: border-box;
     div {
-      p {
-        &:last-child {
-          color: $color-gray;
-          font-weight: 400;
-          line-height: 1.5rem;
-        }
-      }
       span {
         text-overflow: ellipsis;
       }

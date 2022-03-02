@@ -8,27 +8,46 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { saveUserInfo } from "redux/actions/userAction";
 
-export function UserAction({ userId, userInfo, following, setFollowing }) {
+export function UserAction({ user, userInfo, setUser }) {
   let dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const [buttonLoading, setButtonLoading] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
     setButtonLoading(true);
-    follow(userId, token)
+    follow(user?._id, token)
       .then((res) => {
         setButtonLoading(false);
-        dispatch(saveUserInfo({ ...userInfo, following: res.data.data }));
+
+        if (res.data.message === "follow") {
+          dispatch(
+            saveUserInfo({ ...userInfo, following: userInfo?.following + 1 })
+          );
+          setUser({
+            ...user,
+            followers: user?.followers + 1,
+            isFollowing: true,
+          });
+        } else {
+          dispatch(
+            saveUserInfo({ ...userInfo, following: userInfo?.following - 1 })
+          );
+          setUser({
+            ...user,
+            followers: user?.followers - 1,
+            isFollowing: false,
+          });
+        }
       })
       .catch((error) => {
-        console.warn(error.response);
+        console.warn(error);
         setButtonLoading(false);
       });
   };
 
   return (
     <div className={style.action}>
-      {following ? (
+      {user?.isFollowing ? (
         <>
           <ButtonSecondary style={{ marginRight: "0.5rem" }}>
             Message
@@ -42,8 +61,6 @@ export function UserAction({ userId, userInfo, following, setFollowing }) {
           Follow
         </ButtonPrimary>
       )}
-
-      <MoreIcon />
     </div>
   );
 }
