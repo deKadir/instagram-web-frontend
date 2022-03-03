@@ -4,6 +4,7 @@ import profile from "assets/images/profile_img.jpg";
 import { HeartIcon } from "assets/icons";
 import { useNavigate } from "react-router-dom";
 import { getImage } from "helpers/image";
+import { HeartIconActive } from "assets/icons";
 
 export default function Comment({ comment }) {
   let navigate = useNavigate();
@@ -23,10 +24,8 @@ export default function Comment({ comment }) {
 
         <div className={style.comment_info}>
           <small>{comment?.createdAt}</small>
-          <span>26 likes</span>
         </div>
       </div>
-      <HeartIcon />
     </div>
   );
 }

@@ -40,3 +40,14 @@ export function getPostLikes(token, postId) {
     },
   });
 }
+export function likePost(token, postId) {
+  return axios.post(
+    `${BASE_URL}${ApiConfig.post.likePost}/${postId}`,
+    {},
+    {
+      headers: {
+        authorization: `bearer ${token}`,
+      },
+    }
+  );
+}

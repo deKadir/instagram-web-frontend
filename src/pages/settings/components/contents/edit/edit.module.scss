@@ -4,6 +4,12 @@ form {
     display: flex;
     margin-bottom: 2rem;
     width: 100%;
+    img {
+      width: 3rem !important;
+      height: 3rem !important;
+      border-radius: 50%;
+      object-fit: cover;
+    }
     label {
       @include form_label;
       width: 25%;

@@ -18,16 +18,19 @@ import { useNavigate } from "react-router-dom";
 import { getPostLikes } from "requests/PostRequest";
 import { useSelector } from "react-redux";
 import UserList from "components/popup/userList";
+import { likePost } from "requests/PostRequest";
+import { HeartIconActive } from "assets/icons";
 
-export default function Post({ children, post }) {
+export default function Post({ children, post: _post }) {
   const [fullDescription, setFullDescription] = useState(false);
   const [likes, setLikes] = useState([]);
+  const [post, setPost] = useState(_post);
   let navigate = useNavigate();
   let token = useSelector((state) => state.auth.token);
   const handleClick = () => {
     navigate(`/profile/${post?.userId?.username}/posts`);
   };
-  const handlePostLikes = (userId) => {
+  const handlePostLikes = () => {
     setLikes([]);
     getPostLikes(token, post?._id).then((res) => {
       setLikes(
@@ -37,14 +40,35 @@ export default function Post({ children, post }) {
       );
     });
   };
+  const [loading, setLoading] = useState(false);
+  const handleLikePost = () => {
+    setLoading(true);
+    if (!loading) {
+      likePost(token, post?._id)
+        .then((res) => {
+          if (res.data.message === "like") {
+            setPost({ ...post, likeCount: post?.likeCount + 1, liked: true });
+          } else {
+            setPost({ ...post, likeCount: post?.likeCount - 1, liked: false });
+          }
+          setLoading(false);
+        })
+        .catch((e) => console.log(e.response));
+    }
+  };
   return (
     <div className={style.post}>
       <PostHead user={post?.userId} />
       <div className={style.post_content}>{children}</div>
       <div className={style.post_actions}>
-        <HeartIcon />
+        {post?.liked || loading ? (
+          <HeartIconActive onClick={handleLikePost} />
+        ) : (
+          <HeartIcon onClick={handleLikePost} />
+        )}
+
         <PopupContainer Toggle={<CommentIcon />}>
-          <PostContainer postId={post?._id} />
+          <PostContainer postId={post?._id} setPost={setPost} />
         </PopupContainer>
         <ShareIcon />
         <SaveIcon />

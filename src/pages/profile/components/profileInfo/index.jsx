@@ -53,9 +53,10 @@ export default function ProfileInfo({ user, setUser }) {
     active: false,
   });
   useEffect(() => {
-    console.log(listPopup);
+    console.log(user);
     setUserList([]);
     if (listPopup.type === "following" && listPopup.active) {
+      console.log(user?._id);
       getFollowings(token, user?._id)
         .then((res) => {
           setUserList(
@@ -73,19 +74,17 @@ export default function ProfileInfo({ user, setUser }) {
     if (listPopup.type === "followers" && listPopup.active) {
       getFollowers(token, user?._id)
         .then((res) => {
-          console.log(res.data);
           setUserList([
-            res.data.data.map((u) => {
-              console.log(u);
+            res?.data.data?.map((u) => {
               return {
                 user: { ...u.follower, isFollowing: u.follower.isFollowing },
               };
             }),
           ]);
         })
-        .catch((e) => console.log(e.response));
+        .catch((e) => console.log(e));
     }
-  }, [listPopup]);
+  }, [listPopup, user]);
   return (
     <div className={style.profile}>
       <img src={getImage(user?.profileImg)} alt="profile" />

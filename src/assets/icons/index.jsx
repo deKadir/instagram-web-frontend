@@ -138,14 +138,15 @@ export const ExploreIconActive = () => {
     </svg>
   );
 };
-export const HeartIcon = () => {
+export const HeartIcon = ({ onClick = () => {} }) => {
   return (
     <svg
       width="22"
       height="22"
       viewBox="0 0 22 22"
-      fill="none"
+      fill="black"
       xmlns="http://www.w3.org/2000/svg"
+      onClick={onClick}
     >
       <g clip-path="url(#clip0_2_55)">
         <path
@@ -161,13 +162,14 @@ export const HeartIcon = () => {
     </svg>
   );
 };
-export const HeartIconActive = () => {
+export const HeartIconActive = ({ onClick = () => {} }) => {
   return (
     <svg
       width="22"
       height="22"
       viewBox="0 0 22 22"
       fill="none"
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clip-path="url(#clip0_2_57)">

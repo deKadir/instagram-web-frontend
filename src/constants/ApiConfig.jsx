@@ -20,6 +20,7 @@ export const ApiConfig = {
     postFeed: "post/postFeed",
     getPost: "post/getPost",
     getPostLikes: "like/postLikes",
+    likePost: "like/likePost",
   },
   comment: {
     add: "comment/add",

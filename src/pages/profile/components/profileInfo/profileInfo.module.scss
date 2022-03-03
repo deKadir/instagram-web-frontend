@@ -6,15 +6,16 @@
     font-weight: 350;
     font-style: normal;
     font-size: 1.75rem;
-
     line-height: 2rem;
   }
   img {
-    width: 9.375rem;
-    height: 9.375rem;
+    width: 8rem !important;
+    height: 8rem !important;
+    padding: 0;
     margin-inline: 7%;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center;
   }
   &_info {
     width: 100%;
