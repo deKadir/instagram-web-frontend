@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import UserList from "components/popup/userList";
 import { likePost } from "requests/PostRequest";
 import { HeartIconActive } from "assets/icons";
+import CommentForm from "./../commentform/CommentForm";
 
 export default function Post({ children, post: _post }) {
   const [fullDescription, setFullDescription] = useState(false);
@@ -98,24 +99,20 @@ export default function Post({ children, post: _post }) {
           Toggle={
             <a>
               <p className={style.post_info_p}>
-                View all {post?.commentCount} comments
+                View all {post?.commentCount >= 1 && post?.commentCount}{" "}
+                comments
               </p>
             </a>
           }
         >
-          <PostContainer postId={post?._id} />
+          <PostContainer postId={post?._id} setPost={setPost} />
         </PopupContainer>
 
         <a>
           <small className={style.post_time}>{post?.createdAt}</small>
         </a>
       </div>
-      <div className={style.comment_form}>
-        <EmojiIcon />
-
-        <Input placeholder="Add a comment..." />
-        <Button disabled={true}>Post</Button>
-      </div>
+      <CommentForm postId={post?._id} />
     </div>
   );
 }

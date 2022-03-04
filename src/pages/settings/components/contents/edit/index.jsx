@@ -20,7 +20,7 @@ export default function Edit() {
   const [response, setResponse] = useState(responseInitial);
   let dispatch = useDispatch();
   const [userForm, setUserForm] = useState(formInitial);
-  const [profileImg, setProfileImg] = useState();
+
   const formData = new FormData();
   const token = useSelector((state) => state.auth.token);
   const handleFormChange = (e) => {
@@ -53,9 +53,12 @@ export default function Edit() {
         updateProfielImg(token, formData)
           .then((res) => {
             dispatch(
-              saveUserInfo({ ...userForm, profileImg: res.data.profileImg })
+              saveUserInfo({
+                ...userInfo,
+
+                profileImg: res.data.profileImg,
+              })
             );
-            console.log("calisti");
           })
           .catch((e) => console.log(e.response));
       }
@@ -63,7 +66,7 @@ export default function Edit() {
       updateUserInfo(token, userForm)
         .then((res) => {
           if (res.data.data) {
-            dispatch(saveUserInfo({ ...userForm, ...res.data.data }));
+            dispatch(saveUserInfo({ ...userInfo, ...res.data.data }));
             setResponse({ error: false, message: "uploaded successfully." });
           } else {
             setResponse({ error: true, message: "an error occured" });

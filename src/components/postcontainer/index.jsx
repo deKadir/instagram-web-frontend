@@ -1,8 +1,7 @@
 import PostHead from "components/post/head";
 import style from "./showpost.module.scss";
-import { Button } from "components/buttons";
-import { Input } from "components/inputs";
-import { EmojiIcon, ShareIcon, HeartIcon, SaveIcon } from "assets/icons";
+
+import { ShareIcon, HeartIcon, SaveIcon } from "assets/icons";
 import postStyle from "components/post/post.module.scss";
 import Comment from "components/comment/index";
 import { CommentIcon } from "assets/icons";
@@ -11,51 +10,25 @@ import { getPost } from "requests/PostRequest";
 import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
 import { getPostComments } from "requests/CommentRequest";
-import { addComment } from "requests/CommentRequest";
 import { getPostLikes, likePost } from "requests/PostRequest";
 import { HeartIconActive } from "assets/icons";
+import CommentForm from "components/commentform/CommentForm";
 
-const commentInitial = {
-  comment: "",
-  postId: "",
-  loading: false,
-};
 export default function PostContainer({ postId, setPost: _setPost }) {
   let token = useSelector((state) => state.auth.token);
-  let activeUser = useSelector((state) => state.user);
+
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
-  const [comment, setComment] = useState(commentInitial);
 
   useEffect(() => {
     getPost(token, postId).then((res) => setPost(res.data.data));
   }, []);
 
-  const handleCommentSubmit = () => {
-    setComment({ ...comment, loading: true });
-    addComment(token, comment)
-      .then((res) => {
-        setComment({ ...comment, comment: "", loading: false });
-        setComments([
-          {
-            ...res.data.comment,
-            owner: {
-              _id: activeUser?._id,
-              username: activeUser?.username,
-              profileImg: activeUser?.profileImg,
-            },
-          },
-          ...comments,
-        ]);
-      })
-      .catch((e) => console.log(e.response.message));
-  };
   useEffect(() => {
     if (post?._id) {
       getPostComments(token, post?._id)
         .then((res) => setComments(res.data.comments))
         .catch((e) => console.log(e.message));
-      setComment({ postId: post?._id, comment: "" });
     }
   }, [post]);
   const handleLikesPopup = () => {
@@ -116,22 +89,11 @@ export default function PostContainer({ postId, setPost: _setPost }) {
             <small className={postStyle.post_time}>{post?.createdAt}</small>
           </a>
         </div>
-        <div className={style.comment_form}>
-          <EmojiIcon />
-          <Input
-            placeholder="Add a comment..."
-            value={comment.comment}
-            onChange={(e) =>
-              setComment({ ...comment, comment: e.target.value })
-            }
-          />
-          <Button
-            disabled={!comment.comment || comment.loading}
-            onClick={handleCommentSubmit}
-          >
-            Post
-          </Button>
-        </div>
+        <CommentForm
+          setComments={setComments}
+          comments={comments}
+          postId={postId}
+        />
       </div>
     </div>
   );

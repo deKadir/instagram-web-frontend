@@ -46,6 +46,8 @@ export default function ProfileInfo({ user, setUser }) {
       setLoading(false);
     }
   }, [username]);
+
+  //followings and followers popup
   useEffect(() => {}, [userInfo]);
   const [userList, setUserList] = useState([]);
   const [listPopup, setListPopup] = useState({
@@ -53,15 +55,12 @@ export default function ProfileInfo({ user, setUser }) {
     active: false,
   });
   useEffect(() => {
-    console.log(user);
     setUserList([]);
     if (listPopup.type === "following" && listPopup.active) {
-      console.log(user?._id);
       getFollowings(token, user?._id)
         .then((res) => {
           setUserList(
             res.data.data.map((u) => {
-              console.log(u);
               return {
                 ...u.following,
                 isFollowing: u.isFollowing,
@@ -74,20 +73,23 @@ export default function ProfileInfo({ user, setUser }) {
     if (listPopup.type === "followers" && listPopup.active) {
       getFollowers(token, user?._id)
         .then((res) => {
-          setUserList([
-            res?.data.data?.map((u) => {
-              return {
-                user: { ...u.follower, isFollowing: u.follower.isFollowing },
-              };
-            }),
-          ]);
+          setUserList(
+            res?.data.followers?.map((u) => {
+              return { ...u.follower, isFollowing: u.isFollowing };
+            })
+          );
         })
         .catch((e) => console.log(e));
     }
   }, [listPopup, user]);
+
   return (
     <div className={style.profile}>
-      <img src={getImage(user?.profileImg)} alt="profile" />
+      <img
+        src={getImage(user?.profileImg)}
+        alt="profile"
+        className={style.profile_img}
+      />
 
       <div className={style.profile_info}>
         {!user || loading ? (
