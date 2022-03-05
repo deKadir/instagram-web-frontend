@@ -61,3 +61,10 @@ export const updateProfielImg = (token, profileImg) => {
     }
   );
 };
+export const changePassword = (token, data) => {
+  return axios.post(`${BASE_URL}${ApiConfig.user.changePassword}`, data, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

@@ -6,7 +6,7 @@ export default function SettingsSidebar() {
     <div className={style.sidebar}>
       <Link to={"/settings/edit"}>Edit profile</Link>
       <Link to={"/settings/change-password"}>Change Password</Link>
-      <Link to={"/settings/security"}>Security and Privacy</Link>
+      {/* <Link to={"/settings/security"}>Security and Privacy</Link> */}
     </div>
   );
 }

@@ -13,6 +13,7 @@ import { getPostComments } from "requests/CommentRequest";
 import { getPostLikes, likePost } from "requests/PostRequest";
 import { HeartIconActive } from "assets/icons";
 import CommentForm from "components/commentform/CommentForm";
+import PostBody from "components/post/body";
 
 export default function PostContainer({ postId, setPost: _setPost }) {
   let token = useSelector((state) => state.auth.token);
@@ -61,7 +62,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
   return (
     <div className={style.post}>
       <div className={style.post_container}>
-        <img src={getImage(post?.photos[0])} />
+        <PostBody photos={post?.photos} />
       </div>
       <div className={style.post_detail}>
         <PostHead user={post?.userId} />

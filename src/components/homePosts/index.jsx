@@ -10,10 +10,8 @@ export default function HomePosts() {
   let { page } = usePaginate();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    console.log(page);
     postFeed(token, `?page=${page}&limit=5`)
       .then((res) => {
-        console.log(res.data.data);
         setPosts([...posts, ...res.data.data]);
       })
       .catch((e) => console.log(e.response));
@@ -21,9 +19,7 @@ export default function HomePosts() {
   return (
     <div>
       {posts.map((post, index) => (
-        <Post post={post} key={index}>
-          <img src={getImage(post.photos[0])} />
-        </Post>
+        <Post post={post} key={index} />
       ))}
     </div>
   );

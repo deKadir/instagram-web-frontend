@@ -12,6 +12,7 @@ export default function Upload({ setPostForm, postForm, formData }) {
       <div className={style.upload_body}>
         <AddPhotosIcon />
         <h2>Drag photos and videos here</h2>
+        <h1>Square photo recommended!</h1>
         <ButtonPrimary>
           Select from computer
           <FileInput

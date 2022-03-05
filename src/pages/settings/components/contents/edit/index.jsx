@@ -54,8 +54,8 @@ export default function Edit() {
           .then((res) => {
             dispatch(
               saveUserInfo({
+                ...userForm,
                 ...userInfo,
-
                 profileImg: res.data.profileImg,
               })
             );
@@ -66,7 +66,7 @@ export default function Edit() {
       updateUserInfo(token, userForm)
         .then((res) => {
           if (res.data.data) {
-            dispatch(saveUserInfo({ ...userInfo, ...res.data.data }));
+            dispatch(saveUserInfo({ ...userInfo, ...userForm }));
             setResponse({ error: false, message: "uploaded successfully." });
           } else {
             setResponse({ error: true, message: "an error occured" });

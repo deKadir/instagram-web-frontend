@@ -17,7 +17,7 @@ export const ImageThumbnail = ({ post }) => {
           <CommentIcon /> {post?.commentCount}
         </p>
       </div>
-      {post?.photos.length && <PhotosIcon />}
+      {post?.photos.length > 1 && <PhotosIcon />}
       <img src={getImage(post?.photos[0])} alt="post" />
     </div>
   );

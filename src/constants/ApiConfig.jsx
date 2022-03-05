@@ -1,4 +1,4 @@
-export const BASE_URL = "https://serene-meadow-49392.herokuapp.com/";
+export const BASE_URL = "https://serene-meadow-49392.herokuapp.com/api/";
 
 export const ApiConfig = {
   auth: {
@@ -13,6 +13,7 @@ export const ApiConfig = {
     followers: "user/getFollowers",
     following: "user/getFollowings",
     updateProfileImg: "user/updateProfileImg",
+    changePassword: "user/changePassword",
   },
   post: {
     getUserPosts: "post/userPosts",

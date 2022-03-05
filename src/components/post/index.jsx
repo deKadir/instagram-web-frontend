@@ -21,6 +21,7 @@ import UserList from "components/popup/userList";
 import { likePost } from "requests/PostRequest";
 import { HeartIconActive } from "assets/icons";
 import CommentForm from "./../commentform/CommentForm";
+import PostBody from "./body";
 
 export default function Post({ children, post: _post }) {
   const [fullDescription, setFullDescription] = useState(false);
@@ -60,7 +61,7 @@ export default function Post({ children, post: _post }) {
   return (
     <div className={style.post}>
       <PostHead user={post?.userId} />
-      <div className={style.post_content}>{children}</div>
+      <PostBody photos={post?.photos} />
       <div className={style.post_actions}>
         {post?.liked || loading ? (
           <HeartIconActive onClick={handleLikePost} />

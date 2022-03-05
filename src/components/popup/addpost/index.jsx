@@ -22,6 +22,12 @@ export default function AddPost() {
   let userInfo = useSelector((state) => state.user);
   const handleFormSubmit = () => {
     formData.append("description", postForm.description);
+    for (let index in postForm.photos) {
+      if (!postForm.photos[index].type.includes("image")) {
+        setResponse({ error: true, message: "this file type isnt supported" });
+        return 0;
+      }
+    }
     postForm.photos.map((photo) => formData.append("photo", photo));
     setResponse({ ...responseInitial, waiting: true });
     sharePost(token, formData)

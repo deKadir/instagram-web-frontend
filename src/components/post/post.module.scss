@@ -40,9 +40,20 @@
     }
   }
   &_content {
+    position: relative;
     img {
       object-fit: cover;
       width: 100%;
+    }
+    svg {
+      position: absolute;
+      top: 40%;
+      &:first-child {
+        left: 0;
+      }
+      &:nth-child(3) {
+        right: 0;
+      }
     }
     width: 100%;
   }

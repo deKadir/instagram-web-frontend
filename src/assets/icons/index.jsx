@@ -325,11 +325,13 @@ export const SearchIcon = () => {
     </svg>
   );
 };
-export const CareouselIconLeft = () => {
+export const CareouselIconLeft = ({ onClick = () => {}, className = "" }) => {
   return (
     <svg
       width="30"
       height="31"
+      onClick={onClick}
+      className={className}
       viewBox="0 0 30 31"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -387,11 +389,13 @@ export const CareouselIconLeft = () => {
     </svg>
   );
 };
-export const CarouselIconRight = () => {
+export const CarouselIconRight = ({ onClick = () => {}, className = {} }) => {
   return (
     <svg
+      className={className}
       width="30"
       height="31"
+      onClick={onClick}
       viewBox="0 0 30 31"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

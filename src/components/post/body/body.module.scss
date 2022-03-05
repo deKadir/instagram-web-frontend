@@ -1,0 +1,39 @@
+@import "styles/global.module.scss";
+.post_content {
+  position: relative;
+  img {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+  }
+  .leftArrow,
+  .rightArrow {
+    position: absolute;
+    top: 40%;
+  }
+  .leftArrow {
+    left: 0;
+  }
+  .rightArrow {
+    right: 0;
+  }
+  width: 100%;
+}
+.dots {
+  display: flex;
+  justify-content: center;
+  .dot,
+  .dot_active {
+    display: block;
+    margin: 8px 4px;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: $color-gray;
+  }
+  .dot_active {
+    background-color: $color-secondary;
+  }
+}
