@@ -85,11 +85,9 @@ export default function ProfileInfo({ user, setUser }) {
 
   return (
     <div className={style.profile}>
-      <img
-        src={getImage(user?.profileImg)}
-        alt="profile"
-        className={style.profile_img}
-      />
+      <div className={style.profile_img}>
+        <img src={getImage(user?.profileImg)} alt="profile" />
+      </div>
 
       <div className={style.profile_info}>
         {!user || loading ? (

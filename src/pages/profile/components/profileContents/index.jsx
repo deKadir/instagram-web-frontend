@@ -5,10 +5,12 @@ import { TaggedIcon, SaveIcon, PostsIcon } from "assets/icons";
 import GridPosts from "components/gridPosts";
 import { ImageThumbnail } from "components/post/thumbnail";
 
-import StartSharing from "../startSharing";
 import { Link, useParams } from "react-router-dom";
 import NoPost from "components/nopost";
 import { useSelector } from "react-redux";
+import PopupContainer from "components/popup";
+import PostContainer from "components/postcontainer";
+import { usePaginate } from "hooks/paginate";
 
 const navbarItems = [
   {
@@ -33,9 +35,11 @@ export default function ProfileContents({ user }) {
   let { content, username: pathUsername } = useParams();
   let { username } = useSelector((state) => state.user);
   let token = useSelector((state) => state.auth.token);
-  const [scrollEnd, setScrollEnd] = useState(false);
+  let { page } = usePaginate();
   const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (user?._id) {
       getUserPosts(token, user?._id, `?page=${page}&limit=4`)
@@ -44,23 +48,17 @@ export default function ProfileContents({ user }) {
         })
         .catch((err) => console.log(err.response));
     }
-  }, [user, page]);
-
-  useEffect(() => {
-    function onScroll() {
-      if (
-        this.document.documentElement.scrollHeight ===
-        window.pageYOffset + this.window.innerHeight
-      ) {
-        setScrollEnd(true);
-        setPage(page + 1);
-      } else {
-        setScrollEnd(false);
-      }
-    }
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
   }, [page]);
+  useEffect(() => {
+    setPosts([]);
+    if (user?._id) {
+      getUserPosts(token, user?._id, `?page=${page}&limit=4`)
+        .then((res) => {
+          setPosts([...posts, ...res.data.data]);
+        })
+        .catch((err) => console.log(err.response));
+    }
+  }, [user]);
 
   return (
     <div className={style.contents}>
@@ -84,11 +82,11 @@ export default function ProfileContents({ user }) {
         <GridPosts>
           {posts?.map((post, index) => {
             return (
-              <ImageThumbnail
-                photo={post.photos[0]}
-                single={post.photos.length > 1}
-                key={index}
-              />
+              <PopupContainer
+                Toggle={<ImageThumbnail post={post} key={index} />}
+              >
+                <PostContainer postId={post?._id} />
+              </PopupContainer>
             );
           })}
         </GridPosts>

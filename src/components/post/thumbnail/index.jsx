@@ -6,19 +6,19 @@ import style from "./thumbnail.module.scss";
 export default function ThumbnailContainer({ children }) {
   return <div className={style.container}>{children}</div>;
 }
-export const ImageThumbnail = ({ single = false, likes = 0, photo = "" }) => {
+export const ImageThumbnail = ({ post }) => {
   return (
     <div className={style.thumbnail_img}>
       <div className={style.thumbnail_hover}>
         <p>
-          <HeartIcon /> {likes}
+          <HeartIcon /> {post?.likeCount}
         </p>
         <p>
-          <CommentIcon /> 32
+          <CommentIcon /> {post?.commentCount}
         </p>
       </div>
-      {single && <PhotosIcon />}
-      <img src={getImage(photo)} alt="post" />
+      {post?.photos.length && <PhotosIcon />}
+      <img src={getImage(post?.photos[0])} alt="post" />
     </div>
   );
 };
