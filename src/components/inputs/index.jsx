@@ -24,43 +24,46 @@ export const Input = ({
     />
   );
 };
-export const SearchInput = ({ placeholder = "Search", data = [] }) => {
-  const [inputItem, setInputItem] = useState({ value: "", focus: false });
+export const SearchInput = ({
+  placeholder = "Search",
+  data = [],
+  setSearchKey = () => {},
+  searchKey = "",
+}) => {
+  const [focus, setFocus] = useState(false);
+
   return (
     <div className={style.search}>
-      {inputItem.focus && (
+      {focus && (
         <button
           className={style.background_button}
           onClick={() => {
-            setInputItem({ ...inputItem, focus: false });
+            setFocus(false);
           }}
         ></button>
       )}
-      {!inputItem.value && (
+      {!searchKey && (
         <span className={style.search_icon}>
           <SearchIcon />
         </span>
       )}
       <input
         placeholder={placeholder}
-        value={inputItem.value}
+        value={searchKey}
         className={style.search_input}
         onClick={() => {
-          setInputItem({ ...inputItem, focus: true });
+          setFocus(true);
         }}
-        onChange={(e) => setInputItem({ ...inputItem, value: e.target.value })}
+        onChange={(e) => setSearchKey(e.target.value)}
       />
-      {inputItem.focus && (
+      {focus && (
         <div className={style.search_menu}>
           <div className={style.search_menu_head}>
-            <h2>Recent</h2>
-            <ButtonText>Clear all</ButtonText>
+            <h2>Result</h2>
           </div>
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
+          {data.map((user, index) => {
+            return <SearchItem key={index} user={user} />;
+          })}
         </div>
       )}
     </div>

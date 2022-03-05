@@ -1,4 +1,4 @@
-export const BASE_URL = "https://serene-meadow-49392.herokuapp.com/api/";
+export const BASE_URL = "http://localhost:3001/api/";
 
 export const ApiConfig = {
   auth: {
@@ -14,6 +14,7 @@ export const ApiConfig = {
     following: "user/getFollowings",
     updateProfileImg: "user/updateProfileImg",
     changePassword: "user/changePassword",
+    searchUser: "user/searchUser",
   },
   post: {
     getUserPosts: "post/userPosts",

@@ -68,3 +68,13 @@ export const changePassword = (token, data) => {
     },
   });
 };
+export const searchUser = (token, searchKey) => {
+  return axios.get(
+    `${BASE_URL}${ApiConfig.user.searchUser}?username=${searchKey}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};

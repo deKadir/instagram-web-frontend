@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./navbar.module.scss";
 import { Link } from "react-router-dom";
 import Styles from "constants/style";
@@ -23,16 +23,30 @@ import AddPost from "components/popup/addpost";
 import PopupContainer from "components/popup";
 import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
+import { searchUser } from "requests/UserRequest";
 
 export default function Navbar() {
   let { username, profileImg } = useSelector((state) => state.user);
+  let token = useSelector((state) => state.auth.token);
+  const [searchKey, setSearchKey] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  useEffect(() => {
+    searchUser(token, searchKey)
+      .then((res) => setSearchResult(res.data.users))
+      .catch((e) => console.log(e.response));
+  }, [searchKey]);
   return (
     <div className={style.navbar}>
       <div className={style.navbar_container}>
         <Link to={"/"}>
           <InstagramTextLogo />
         </Link>
-        <SearchInput placeholder="Search" />
+        <SearchInput
+          placeholder="Search"
+          searchKey={searchKey}
+          setSearchKey={setSearchKey}
+          data={searchResult}
+        />
 
         <div className={style.navbar_container_icons}>
           <Link to={"/"}>
@@ -75,7 +89,7 @@ export default function Navbar() {
             Toggle={
               <img
                 src={getImage(profileImg)}
-                alt=""
+                alt="profileImg"
                 className={style.profile_img}
               />
             }
