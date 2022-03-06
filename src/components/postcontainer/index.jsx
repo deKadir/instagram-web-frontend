@@ -1,7 +1,7 @@
 import PostHead from "components/post/head";
 import style from "./showpost.module.scss";
 
-import { ShareIcon, HeartIcon, SaveIcon } from "assets/icons";
+import { ShareIcon, HeartIcon, SaveIcon, SaveIconActive } from "assets/icons";
 import postStyle from "components/post/post.module.scss";
 import Comment from "components/comment/index";
 import { CommentIcon } from "assets/icons";
@@ -81,7 +81,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
 
           <CommentIcon />
           <ShareIcon />
-          <SaveIcon />
+          {post?.isSaved ? <SaveIconActive /> : <SaveIcon />}
         </div>
         <div className={postStyle.post_info} onClick={handleLikesPopup}>
           <p>{post?.likeCount} likes</p>

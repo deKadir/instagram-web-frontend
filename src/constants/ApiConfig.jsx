@@ -15,6 +15,9 @@ export const ApiConfig = {
     updateProfileImg: "user/updateProfileImg",
     changePassword: "user/changePassword",
     searchUser: "user/searchUser",
+    getSavedPosts: "user/getSavedPosts",
+    savePost: "user/savePost",
+    sendVerificationCode: "user/sendVerificationCode",
   },
   post: {
     getUserPosts: "post/userPosts",
@@ -23,6 +26,7 @@ export const ApiConfig = {
     getPost: "post/getPost",
     getPostLikes: "like/postLikes",
     likePost: "like/likePost",
+    explore: "post/explore",
   },
   comment: {
     add: "comment/add",

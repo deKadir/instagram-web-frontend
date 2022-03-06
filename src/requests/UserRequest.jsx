@@ -78,3 +78,27 @@ export const searchUser = (token, searchKey) => {
     }
   );
 };
+
+export const savePost = (token, postId) => {
+  return axios.post(
+    `${BASE_URL}${ApiConfig.user.savePost}/${postId}`,
+    {},
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+export const getSavedPosts = (token) => {
+  return axios.get(`${BASE_URL}${ApiConfig.user.getSavedPosts}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+export const sendVerificationCode = (mail) => {
+  return axios.get(
+    `${BASE_URL}${ApiConfig.user.sendVerificationCode}?mail=${mail}`
+  );
+};

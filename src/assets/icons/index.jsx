@@ -251,12 +251,13 @@ export const ShareIcon = () => {
     </svg>
   );
 };
-export const SaveIcon = () => {
+export const SaveIcon = ({ onClick = () => {} }) => {
   return (
     <svg
       width="22"
       height="22"
       viewBox="0 0 22 22"
+      onClick={onClick}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -274,7 +275,22 @@ export const SaveIcon = () => {
     </svg>
   );
 };
-
+export const SaveIconActive = ({ onClick = () => {} }) => {
+  return (
+    <svg
+      aria-label="Remove"
+      onClick={onClick}
+      color="#262626"
+      fill="#262626"
+      height="24"
+      role="img"
+      viewBox="0 0 24 24"
+      width="24"
+    >
+      <path d="M20 22a.999.999 0 01-.687-.273L12 14.815l-7.313 6.912A1 1 0 013 21V3a1 1 0 011-1h16a1 1 0 011 1v18a1 1 0 01-1 1z"></path>
+    </svg>
+  );
+};
 export const InstagramTextLogo = () => {
   return (
     <svg

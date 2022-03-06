@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import PopupContainer from "components/popup";
 import PostContainer from "components/postcontainer";
 import { usePaginate } from "hooks/paginate";
+import { getSavedPosts } from "./../../../../requests/UserRequest";
 
 const navbarItems = [
   {
@@ -41,7 +42,7 @@ export default function ProfileContents({ user }) {
     window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
-    if (user?._id) {
+    if (user?._id && content === "posts") {
       getUserPosts(token, user?._id, `?page=${page}&limit=4`)
         .then((res) => {
           setPosts([...posts, ...res.data.data]);
@@ -51,15 +52,20 @@ export default function ProfileContents({ user }) {
   }, [page]);
   useEffect(() => {
     setPosts([]);
-    if (user?._id) {
+    if (user?._id && content === "posts") {
       getUserPosts(token, user?._id, `?page=${page}&limit=4`)
         .then((res) => {
           setPosts([...posts, ...res.data.data]);
         })
         .catch((err) => console.log(err.response));
     }
-  }, [user]);
-
+  }, [user, content]);
+  const [savedPosts, setSavedPosts] = useState([]);
+  useEffect(() => {
+    if (content === "saved") {
+      getSavedPosts(token).then((res) => setSavedPosts(res.data.posts));
+    }
+  }, [content]);
   return (
     <div className={style.contents}>
       <div className={style.contents_navbar}>
@@ -93,18 +99,18 @@ export default function ProfileContents({ user }) {
       )}
       {
         content === "saved" && username === pathUsername && (
-          <div>hello world</div>
+          <GridPosts>
+            {savedPosts?.map((post, index) => (
+              <PopupContainer
+                Toggle={<ImageThumbnail post={post} key={index} />}
+              >
+                <PostContainer postId={post?._id} />
+              </PopupContainer>
+            ))}
+          </GridPosts>
         )
 
-        /* <GridPosts>
-          {posts?.map((post, index) => (
-            <ImageThumbnail
-              likes={post.likes.length}
-              photo={post?.photos[0]}
-              key={index}
-            />
-          ))}
-        </GridPosts> */
+        /*  */
       }
       {content === "tagged" && <NoPost />}
     </div>

@@ -11,10 +11,10 @@ export const ImageThumbnail = ({ post }) => {
     <div className={style.thumbnail_img}>
       <div className={style.thumbnail_hover}>
         <p>
-          <HeartIcon /> {post?.likeCount}
+          <HeartIcon /> {post?.likeCount || 0}
         </p>
         <p>
-          <CommentIcon /> {post?.commentCount}
+          <CommentIcon /> {post?.commentCount || 0}
         </p>
       </div>
       {post?.photos.length > 1 && <PhotosIcon />}

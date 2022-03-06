@@ -8,6 +8,7 @@ import {
   ShareIcon,
   SaveIcon,
   EmojiIcon,
+  SaveIconActive,
 } from "assets/icons";
 import { Input } from "components/inputs";
 import { Button } from "components/buttons";
@@ -22,6 +23,7 @@ import { likePost } from "requests/PostRequest";
 import { HeartIconActive } from "assets/icons";
 import CommentForm from "./../commentform/CommentForm";
 import PostBody from "./body";
+import { savePost } from "requests/UserRequest";
 
 export default function Post({ children, post: _post }) {
   const [fullDescription, setFullDescription] = useState(false);
@@ -58,6 +60,19 @@ export default function Post({ children, post: _post }) {
         .catch((e) => console.log(e.response));
     }
   };
+
+  const handleSavePost = () => {
+    savePost(token, post?._id)
+      .then((res) => {
+        console.log(res);
+        if (res.data.message === "save") {
+          setPost({ ...post, isSaved: true });
+        } else {
+          setPost({ ...post, isSaved: false });
+        }
+      })
+      .catch((e) => console.log(e.repsonse));
+  };
   return (
     <div className={style.post}>
       <PostHead user={post?.userId} />
@@ -73,7 +88,11 @@ export default function Post({ children, post: _post }) {
           <PostContainer postId={post?._id} setPost={setPost} />
         </PopupContainer>
         <ShareIcon />
-        <SaveIcon />
+        {post?.isSaved ? (
+          <SaveIconActive onClick={handleSavePost} />
+        ) : (
+          <SaveIcon onClick={handleSavePost} />
+        )}
       </div>
       <div className={style.post_info}>
         <PopupContainer

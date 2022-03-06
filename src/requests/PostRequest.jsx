@@ -51,3 +51,10 @@ export function likePost(token, postId) {
     }
   );
 }
+export function explorePosts(token, query) {
+  return axios.get(`${BASE_URL}${ApiConfig.post.explore}${query}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+}
