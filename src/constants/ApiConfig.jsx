@@ -35,7 +35,7 @@ export const ApiConfig = {
   },
   chat: {
     sendMessage: "chat/sendMessage",
-    getRooms: "chat/getRooms",
+    getRooms: "chat/rooms",
     getMessages: "chat/getMessages",
   },
 };

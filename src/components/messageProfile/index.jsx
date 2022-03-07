@@ -1,12 +1,24 @@
 import style from "./messageProfile.module.scss";
-import profile from "assets/images/profile_img.jpg";
-export default function MessageProfile() {
+import { useSelector } from "react-redux";
+import { getImage } from "helpers/image";
+import { MainContext, useContext } from "helpers/Context";
+import { useNavigate } from "react-router-dom";
+export default function MessageProfile({ room }) {
+  const activeUser = useSelector((state) => state.user);
+  const friend = room.users.find((u) => u.username !== activeUser.username);
+  const { setActiveRoom } = useContext(MainContext);
+  let navigate = useNavigate();
   return (
-    <div className={style.messageProfile}>
-      <img src={profile} />
+    <div
+      className={style.messageProfile}
+      onClick={() => {
+        navigate(`/messages/${room._id}`);
+      }}
+    >
+      <img src={getImage(friend.profileImg)} />
       <div>
-        <p>trellylucas</p>
-        <p>Active 1 hour ago</p>
+        <p>{friend.username}</p>
+        <p>{room.lastMessage[0].text}</p>
       </div>
     </div>
   );

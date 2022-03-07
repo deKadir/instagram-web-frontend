@@ -39,7 +39,7 @@ const routes = [
     protected: true,
   },
   {
-    path: "/messages/:userId",
+    path: "/messages/:roomId",
     component: Messages,
     exact: false,
     protected: true,
