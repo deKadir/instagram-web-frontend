@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 
 import HomeBody from "./components/body";
 export default function Home() {
+  document.title = "Instagram";
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

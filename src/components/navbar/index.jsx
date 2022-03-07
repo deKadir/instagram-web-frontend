@@ -52,7 +52,7 @@ export default function Navbar() {
           <Link to={"/"}>
             <HomeIcon />
           </Link>
-          <Link to={"/messages"}>
+          <Link to={"/messages/inbox"}>
             <MessengerIcon />
           </Link>
 

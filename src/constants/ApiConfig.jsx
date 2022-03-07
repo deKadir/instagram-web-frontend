@@ -18,6 +18,7 @@ export const ApiConfig = {
     getSavedPosts: "user/getSavedPosts",
     savePost: "user/savePost",
     sendVerificationCode: "user/sendVerificationCode",
+    resetPassword: "user/reset-password",
   },
   post: {
     getUserPosts: "post/userPosts",
@@ -31,5 +32,10 @@ export const ApiConfig = {
   comment: {
     add: "comment/add",
     comments: "comment/comments",
+  },
+  chat: {
+    sendMessage: "chat/sendMessage",
+    getRooms: "chat/getRooms",
+    getMessages: "chat/getMessages",
   },
 };

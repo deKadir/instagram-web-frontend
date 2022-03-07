@@ -6,6 +6,7 @@ import Settings from "pages/settings";
 import Messages from "pages/messages";
 import Profile from "pages/profile";
 import Reset from "./../../pages/reset/index";
+import ResetPassword from "pages/reset/ResetPassword";
 const routes = [
   {
     path: "/",
@@ -38,7 +39,7 @@ const routes = [
     protected: true,
   },
   {
-    path: "/messages",
+    path: "/messages/:userId",
     component: Messages,
     exact: false,
     protected: true,
@@ -52,6 +53,12 @@ const routes = [
   {
     path: "/reset",
     component: Reset,
+    exact: false,
+    protected: false,
+  },
+  {
+    path: "/reset-password/:token",
+    component: ResetPassword,
     exact: false,
     protected: false,
   },

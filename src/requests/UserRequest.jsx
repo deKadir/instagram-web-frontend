@@ -102,3 +102,9 @@ export const sendVerificationCode = (mail) => {
     `${BASE_URL}${ApiConfig.user.sendVerificationCode}?mail=${mail}`
   );
 };
+export const resetPassword = (token, data) => {
+  return axios.post(
+    `${BASE_URL}${ApiConfig.user.resetPassword}?token=${token}`,
+    data
+  );
+};

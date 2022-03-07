@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 export default function ProfileBody() {
   const [user, setUser] = useState();
   let { username } = useSelector((state) => state.user);
+  document.title = `@${user?.username}` || "Instagram";
   return (
     <div className={style.profileBody}>
       <ProfileInfo user={user} setUser={setUser} />

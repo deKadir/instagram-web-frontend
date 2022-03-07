@@ -8,7 +8,6 @@ import { CommentIcon } from "assets/icons";
 import { useEffect, useState } from "react";
 import { getPost } from "requests/PostRequest";
 import { useSelector } from "react-redux";
-import { getImage } from "helpers/image";
 import { getPostComments } from "requests/CommentRequest";
 import { getPostLikes, likePost } from "requests/PostRequest";
 import { HeartIconActive } from "assets/icons";
@@ -81,7 +80,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
 
           <CommentIcon />
           <ShareIcon />
-          {post?.isSaved ? <SaveIconActive /> : <SaveIcon />}
+          {/* {post?.isSaved ? <SaveIconActive /> : <SaveIcon />} */}
         </div>
         <div className={postStyle.post_info} onClick={handleLikesPopup}>
           <p>{post?.likeCount} likes</p>

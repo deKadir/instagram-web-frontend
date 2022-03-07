@@ -16,7 +16,7 @@ export default function Reset() {
   let navigate = useNavigate();
   const [mail, setMail] = useState("");
   const [response, setResponse] = useState(responseInitial);
-  const sendCode = (e) => {
+  const sendLink = (e) => {
     setResponse({ ...responseInitial, loading: true });
     e.preventDefault();
     sendVerificationCode(mail)
@@ -28,7 +28,12 @@ export default function Reset() {
             loading: false,
           });
         } else {
-          setResponse({ error: false, message: "", loading: false });
+          setResponse({
+            error: false,
+            message: "reset link has been submitted",
+            loading: false,
+          });
+          setMail("");
         }
       })
       .catch((e) =>
@@ -47,12 +52,17 @@ export default function Reset() {
           />
           <ButtonPrimary
             disabled={!validateEmail(mail)}
-            onClick={(e) => sendCode(e)}
+            onClick={(e) => sendLink(e)}
           >
-            Send code
+            Send link
           </ButtonPrimary>
+
+          <label style={{ color: response.error ? "red" : "green" }}>
+            {" "}
+            {response.message}
+          </label>
           <h4>Or</h4>
-          <label style={{ color: "red" }}>{response.message}</label>
+
           <ButtonText onClick={() => navigate("/register")}>
             Create new Account
           </ButtonText>

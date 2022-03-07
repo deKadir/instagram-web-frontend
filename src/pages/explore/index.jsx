@@ -17,6 +17,7 @@ export default function Explore() {
       setPosts([...posts, ...res.data.posts]);
     });
   }, [page]);
+  document.title = "Explore";
   return (
     <div className={style.explore}>
       <Navbar />

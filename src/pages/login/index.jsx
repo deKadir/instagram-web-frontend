@@ -12,11 +12,11 @@ import { saveToken } from "redux/actions/authAction";
 import { useDispatch } from "react-redux";
 
 export default function Login() {
+  document.title = "login";
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   let dispatch = useDispatch();
-
   let navigate = useNavigate();
   const handleFormChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });

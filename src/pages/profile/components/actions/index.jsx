@@ -1,11 +1,10 @@
 import { SettingsIcon } from "assets/icons";
-import { MoreIcon } from "assets/icons";
 import { ButtonPrimary, ButtonSecondary } from "components/buttons";
 import style from "./actions.module.scss";
 import { Link } from "react-router-dom";
 import { follow } from "requests/UserRequest";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { saveUserInfo } from "redux/actions/userAction";
 
 export function UserAction({ user, userInfo, setUser }) {
