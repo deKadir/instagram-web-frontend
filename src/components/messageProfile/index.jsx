@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
 import { MainContext, useContext } from "context/Context";
 import { useNavigate } from "react-router-dom";
+
 export default function MessageProfile({ room }) {
   const activeUser = useSelector((state) => state.user);
   const friend = room.users.find((u) => u.username !== activeUser.username);
-  const { setActiveRoom } = useContext(MainContext);
+  // const { setActiveRoom } = useContext(SocketContext);
   let navigate = useNavigate();
   return (
     <div

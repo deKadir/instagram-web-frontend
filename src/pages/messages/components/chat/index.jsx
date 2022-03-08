@@ -1,27 +1,32 @@
 import { EmojiIcon } from "assets/icons";
 import { Button } from "components/buttons";
 import Messagebox from "components/messagebox";
-import React, { useEffect, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
+
 import style from "./chat.module.scss";
 import { InfoIcon } from "assets/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMessages, sendMessage } from "requests/ChatRequest";
 import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
-import socketIOClient from "socket.io-client";
+import Events from "constants/SocketConfig";
+
+import { SocketContext } from "context/SocketContext";
 export default function Chat() {
   let roomId = useParams().roomId;
   let navigate = useNavigate();
   let token = useSelector((state) => state.auth.token);
-  const [messages, setMessages] = useState([]);
+  const { messages, setMessages, socket } = useContext(SocketContext);
   let activeUserId = useSelector((state) => state.user)._id;
   const [messageInput, setMessageInput] = useState({
     roomId: roomId,
     text: "",
   });
   const [activeTab, setActiveTab] = useState();
-  const socket = socketIOClient("http://localhost:3001");
+
   document.title = "Chat";
+
+  //handle tab changes
   useEffect(() => {
     setMessages([]);
     setMessageInput({ ...messageInput, roomId: roomId });
@@ -34,20 +39,23 @@ export default function Chat() {
         .catch((e) => console.log(e.response));
     }
   }, [roomId]);
+
+  //scroll to bottom when messages uploaded
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView();
+  };
   useEffect(() => {
-    socket.on("chat", (msg) => {
-      const message = JSON.parse(JSON.stringify(msg));
-      setMessages([...messages, message]);
-    });
-    return () => socket.close();
+    scrollToBottom();
   }, [messages]);
 
   const handleMessageSubmit = (e) => {
     e.preventDefault();
+
     sendMessage(token, messageInput)
       .then(() => {
         setMessageInput({ ...messageInput, text: "" });
-        socket.emit("chat", {
+        socket.emit(Events.CHAT, {
           text: messageInput.text,
           sender: activeUserId,
           roomId,
@@ -57,6 +65,7 @@ export default function Chat() {
   };
   return (
     <div className={style.chat}>
+      {/* user profile */}
       <div className={style.chat_navbar}>
         <img
           alt="profile"
@@ -68,6 +77,7 @@ export default function Chat() {
         </p>
         <InfoIcon />
       </div>
+      {/* chat messages */}
       <div className={style.chat_body}>
         {messages.map((message, index) => (
           <Messagebox
@@ -76,11 +86,18 @@ export default function Chat() {
             key={index}
           />
         ))}
+        <div ref={messagesEndRef} />
       </div>
+      {/* message input */}
       <div className={style.chat_input}>
         <EmojiIcon />
         <input
           placeholder="type message"
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              handleMessageSubmit(e);
+            }
+          }}
           value={messageInput.text}
           onChange={(e) =>
             setMessageInput({ ...messageInput, text: e.target.value })
