@@ -1,42 +1,46 @@
-import { EmojiIcon } from "assets/icons";
-import { Button } from "components/buttons";
-import Messagebox from "components/messagebox";
-import { useEffect, useContext, useState, useRef } from "react";
+import { EmojiIcon } from 'assets/icons';
+import { Button } from 'components/buttons';
+import Messagebox from 'components/messagebox';
+import { useEffect, useContext, useState, useRef } from 'react';
 
-import style from "./chat.module.scss";
-import { InfoIcon } from "assets/icons";
-import { useNavigate, useParams } from "react-router-dom";
-import { getMessages, sendMessage } from "requests/ChatRequest";
-import { useSelector } from "react-redux";
-import { getImage } from "helpers/image";
-import Events from "constants/SocketConfig";
+import style from './chat.module.scss';
+import { InfoIcon } from 'assets/icons';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getMessages, sendMessage } from 'requests/ChatRequest';
+import { useSelector } from 'react-redux';
+import { getImage } from 'helpers/image';
+import Events from 'constants/SocketConfig';
 
-import { SocketContext } from "context/SocketContext";
+import { SocketContext } from 'context/SocketContext';
 export default function Chat() {
   let roomId = useParams().roomId;
   let navigate = useNavigate();
-  let token = useSelector((state) => state.auth.token);
+  let token = useSelector(state => state.auth.token);
   const { messages, setMessages, socket } = useContext(SocketContext);
-  let activeUserId = useSelector((state) => state.user)._id;
+  let activeUserId = useSelector(state => state.user)._id;
   const [messageInput, setMessageInput] = useState({
     roomId: roomId,
-    text: "",
+    text: '',
   });
   const [activeTab, setActiveTab] = useState();
 
-  document.title = "Chat";
+  document.title = 'Chat';
 
+  useEffect(() => {
+    //burada backendde tuttuğumuz usersa ekleme yapıyoruz, o an aktif kullanıcıları görebilemke ve socket id ile işlem yapabilmek için, burada da işlem yapacak kullanıcıyı ekliyorum
+    socket.emit('addUser', 'kullanıcı idsini buraya ver ');
+  });
   //handle tab changes
   useEffect(() => {
     setMessages([]);
     setMessageInput({ ...messageInput, roomId: roomId });
-    if (roomId !== "inbox") {
+    if (roomId !== 'inbox') {
       getMessages(token, roomId)
-        .then((res) => {
+        .then(res => {
           setMessages(res.data.messages);
-          setActiveTab(...res.data.users.filter((u) => u._id !== activeUserId));
+          setActiveTab(...res.data.users.filter(u => u._id !== activeUserId));
         })
-        .catch((e) => console.log(e.response));
+        .catch(e => console.log(e.response));
     }
   }, [roomId]);
 
@@ -49,19 +53,14 @@ export default function Chat() {
     scrollToBottom();
   }, [messages]);
 
-  const handleMessageSubmit = (e) => {
+  const handleMessageSubmit = e => {
     e.preventDefault();
 
     sendMessage(token, messageInput)
       .then(() => {
-        setMessageInput({ ...messageInput, text: "" });
-        socket.emit(Events.CHAT, {
-          text: messageInput.text,
-          sender: activeUserId,
-          roomId,
-        });
+        setMessageInput({ ...messageInput, text: '' });
       })
-      .catch((error) => console.log(error.response));
+      .catch(error => console.log(error.response));
   };
   return (
     <div className={style.chat}>
@@ -93,20 +92,19 @@ export default function Chat() {
         <EmojiIcon />
         <input
           placeholder="type message"
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
               handleMessageSubmit(e);
             }
           }}
           value={messageInput.text}
-          onChange={(e) =>
+          onChange={e =>
             setMessageInput({ ...messageInput, text: e.target.value })
           }
         />
         <Button
           disabled={!messageInput.text.length}
-          onClick={(e) => handleMessageSubmit(e)}
-        >
+          onClick={e => handleMessageSubmit(e)}>
           Send
         </Button>
       </div>
