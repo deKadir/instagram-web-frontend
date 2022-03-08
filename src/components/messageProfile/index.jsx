@@ -1,7 +1,7 @@
 import style from "./messageProfile.module.scss";
 import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
-import { MainContext, useContext } from "helpers/Context";
+import { MainContext, useContext } from "context/Context";
 import { useNavigate } from "react-router-dom";
 export default function MessageProfile({ room }) {
   const activeUser = useSelector((state) => state.user);
@@ -17,8 +17,8 @@ export default function MessageProfile({ room }) {
     >
       <img src={getImage(friend.profileImg)} />
       <div>
-        <p>{friend.username}</p>
-        <p>{room.lastMessage[0].text}</p>
+        <p>{friend?.username}</p>
+        <p>{room?.lastMessage[0]?.text}</p>
       </div>
     </div>
   );

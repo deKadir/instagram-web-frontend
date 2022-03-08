@@ -16,8 +16,16 @@ export const getRooms = (token) => {
     },
   });
 };
-export const getMessages = (token, query) => {
-  return axios.get(`${BASE_URL}${ApiConfig.chat.getMessages}${query}`, {
+export const getMessages = (token, roomId) => {
+  return axios.get(`${BASE_URL}${ApiConfig.chat.getMessages}?room=${roomId}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const getRoom = (token, userId) => {
+  return axios.get(`${BASE_URL}${ApiConfig.chat.getRoom}?userId=${userId}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
