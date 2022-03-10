@@ -3,7 +3,7 @@ import { Input } from "components/inputs";
 import style from "./reset.module.scss";
 import { ButtonPrimary } from "components/buttons";
 import { InstagramTextLogo } from "assets/icons";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { resetPassword } from "requests/UserRequest";
 
 export default function ResetPassword() {

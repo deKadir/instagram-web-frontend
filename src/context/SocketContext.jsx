@@ -1,12 +1,12 @@
-import Events from 'constants/SocketConfig';
-import { useState, useEffect } from 'react';
+import Events from "constants/SocketConfig";
+import { useState, useEffect } from "react";
 
-import { createContext } from 'react';
+import { createContext } from "react";
 
-import socketIOClient from 'socket.io-client';
-import { useParams } from 'react-router-dom';
+import socketIOClient from "socket.io-client";
+import { useParams } from "react-router-dom";
 export const SocketContext = createContext();
-const socket = socketIOClient('http://localhost:3001');
+const socket = socketIOClient("http://localhost:3001");
 
 function SocketContextProvider(props) {
   const [activeRoom, setActiveRoom] = useState();
