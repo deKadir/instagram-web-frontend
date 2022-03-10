@@ -1,51 +1,49 @@
-import { EmojiIcon } from "assets/icons";
-import { Button } from "components/buttons";
-import Messagebox from "components/messagebox";
-import { useEffect, useContext, useState, useRef } from "react";
+import { EmojiIcon } from 'assets/icons';
+import { Button } from 'components/buttons';
+import Messagebox from 'components/messagebox';
+import { useEffect, useContext, useState, useRef } from 'react';
 
-import style from "./chat.module.scss";
-import { InfoIcon } from "assets/icons";
-import { useNavigate, useParams } from "react-router-dom";
-import { getMessages, sendMessage } from "requests/ChatRequest";
-import { useSelector } from "react-redux";
-import { getImage } from "helpers/image";
+import style from './chat.module.scss';
+import { InfoIcon } from 'assets/icons';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getMessages, sendMessage } from 'requests/ChatRequest';
+import { useSelector } from 'react-redux';
+import { getImage } from 'helpers/image';
 
-import { SocketContext } from "context/SocketContext";
+import { SocketContext } from 'context/SocketContext';
 export default function Chat() {
   let roomId = useParams().roomId;
   let navigate = useNavigate();
-  let token = useSelector((state) => state.auth.token);
-  const { messages, setMessages, socket, rooms, setRooms } =
-    useContext(SocketContext);
-  let activeUserId = useSelector((state) => state.user)._id;
+  let token = useSelector(state => state.auth.token);
+  const { messages, setMessages, socket } = useContext(SocketContext);
+  let activeUserId = useSelector(state => state.user)._id;
   const [messageInput, setMessageInput] = useState({
     roomId: roomId,
-    text: "",
+    text: '',
   });
   const [activeTab, setActiveTab] = useState();
 
-  document.title = "Chat";
+  document.title = 'Chat';
+  // useEffect(() => {
+  //   socket.off('getMessage').on('getMessage', comingMessage => {
+  //     // setMessages([...messages, comingMessage]);
+  //     console.log('test', comingMessage);
+  //   });
+  // });
 
-  useEffect(() => {
-    //burada backendde tuttuğumuz usersa ekleme yapıyoruz, o an aktif kullanıcıları görebilemke ve socket id ile işlem yapabilmek için, burada da işlem yapacak kullanıcıyı ekliyorum
-    socket.emit("addUser", activeTab?._id);
-  }, [activeTab]);
-  useEffect(() => {
-    socket.off("getMessage").on("getMessage", (comingMessage) => {
-      setMessages([...messages, comingMessage]);
-    });
-  });
   //handle tab changes
+  useEffect(() => {}, [activeTab?._id, socket]);
   useEffect(() => {
     setMessages([]);
     setMessageInput({ ...messageInput, roomId: roomId });
-    if (roomId !== "inbox") {
+    if (roomId !== 'inbox') {
       getMessages(token, roomId)
-        .then((res) => {
+        .then(res => {
           setMessages(res.data.messages);
-          setActiveTab(...res.data.users.filter((u) => u._id !== activeUserId));
+
+          setActiveTab(...res.data.users.filter(u => u._id !== activeUserId));
         })
-        .catch((e) => console.log(e.response));
+        .catch(e => console.log(e.response));
     }
   }, [roomId]);
 
@@ -55,30 +53,36 @@ export default function Chat() {
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
-  const handleMessageSubmit = (e) => {
+  const handleMessageSubmit = e => {
     e.preventDefault();
-
+    socket.emit('sendMessage', {
+      sender: activeUserId,
+      conversationId: roomId,
+      receiverId: activeTab?._id,
+      text: messageInput.text,
+    });
     sendMessage(token, messageInput)
       .then(() => {
-        socket.emit("sendMessage", {
-          sender: activeUserId,
-          conversationId: roomId,
-          receiverId: activeTab?._id,
-          text: messageInput.text,
-        });
-        // setMessages([
-        //   ...messages,
-        //   {
-        //     sender: activeUserId,
-        //     conversationId: roomId,
-        //     receiverId: activeTab?._id,
-        //     text: messageInput.text,
-        //   },
-        // ]);
-        setMessageInput({ ...messageInput, text: "" });
+        setMessages([
+          ...messages,
+          {
+            sender: activeUserId,
+            conversationId: roomId,
+            receiverId: activeTab?._id,
+            text: messageInput.text,
+          },
+        ]);
+        setMessageInput({ ...messageInput, text: '' });
       })
-      .catch((error) => console.log(error.response));
+      .catch(error => console.log(error.response));
   };
+  useEffect(() => {
+    socket.on('getMessage', comingMessage => {
+      //incele burayı işte
+      // setMessages([...messages, comingMessage]);
+      console.log(comingMessage);
+    });
+  }, [socket]);
   return (
     <div className={style.chat}>
       {/* user profile */}
@@ -91,6 +95,7 @@ export default function Chat() {
         <p onClick={() => navigate(`/profile/${activeTab?.username}/posts`)}>
           {activeTab?.username}
         </p>
+        <div>{activeTab?._id}</div>
         <InfoIcon />
       </div>
       {/* chat messages */}
@@ -109,20 +114,19 @@ export default function Chat() {
         <EmojiIcon />
         <input
           placeholder="type message"
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
               handleMessageSubmit(e);
             }
           }}
           value={messageInput.text}
-          onChange={(e) =>
+          onChange={e =>
             setMessageInput({ ...messageInput, text: e.target.value })
           }
         />
         <Button
           disabled={!messageInput.text.length}
-          onClick={(e) => handleMessageSubmit(e)}
-        >
+          onClick={e => handleMessageSubmit(e)}>
           Send
         </Button>
       </div>
