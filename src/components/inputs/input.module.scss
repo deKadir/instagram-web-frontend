@@ -85,3 +85,8 @@
     margin-left: 0.5rem;
   }
 }
+@media screen and (max-width: 800px) {
+  .search {
+    display: none;
+  }
+}

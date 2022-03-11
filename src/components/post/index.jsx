@@ -7,11 +7,9 @@ import {
   CommentIcon,
   ShareIcon,
   SaveIcon,
-  EmojiIcon,
   SaveIconActive,
 } from "assets/icons";
-import { Input } from "components/inputs";
-import { Button } from "components/buttons";
+
 import PopupContainer from "components/popup";
 import PostContainer from "components/postcontainer";
 import PostHead from "./head";
@@ -30,13 +28,16 @@ export default function Post({ children, post: _post }) {
   const [likes, setLikes] = useState([]);
   const [post, setPost] = useState(_post);
   let navigate = useNavigate();
+
   let token = useSelector((state) => state.auth.token);
   const handleClick = () => {
     navigate(`/profile/${post?.userId?.username}/posts`);
   };
   const handlePostLikes = () => {
     setLikes([]);
+    setLoading({ ...loading, likesLoading: true });
     getPostLikes(token, post?._id).then((res) => {
+      setLoading({ ...loading, likesLoading: false });
       setLikes(
         res.data.data.map((_like) => {
           return { ..._like.user, isFollowing: _like?.isFollowing };
@@ -44,10 +45,13 @@ export default function Post({ children, post: _post }) {
       );
     });
   };
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    likePostLoading: false,
+    likesLoading: false,
+  });
   const handleLikePost = () => {
-    setLoading(true);
-    if (!loading) {
+    setLoading({ ...loading, likePostLoading: true });
+    if (!loading.likePostLoading) {
       likePost(token, post?._id)
         .then((res) => {
           if (res.data.message === "like") {
@@ -55,16 +59,18 @@ export default function Post({ children, post: _post }) {
           } else {
             setPost({ ...post, likeCount: post?.likeCount - 1, liked: false });
           }
-          setLoading(false);
+          setLoading({ ...loading, likePostLoading: false });
         })
-        .catch((e) => console.log(e.response));
+        .catch((e) => {
+          console.log(e.response);
+          setLoading({ ...loading, likePostLoading: false });
+        });
     }
   };
 
   const handleSavePost = () => {
     savePost(token, post?._id)
       .then((res) => {
-        console.log(res);
         if (res.data.message === "save") {
           setPost({ ...post, isSaved: true });
         } else {
@@ -78,7 +84,7 @@ export default function Post({ children, post: _post }) {
       <PostHead user={post?.userId} />
       <PostBody photos={post?.photos} />
       <div className={style.post_actions}>
-        {post?.liked || loading ? (
+        {post?.liked ? (
           <HeartIconActive onClick={handleLikePost} />
         ) : (
           <HeartIcon onClick={handleLikePost} />
@@ -98,7 +104,12 @@ export default function Post({ children, post: _post }) {
         <PopupContainer
           Toggle={<p onClick={handlePostLikes}>{post?.likeCount} like</p>}
         >
-          <UserList title="likes" list={likes} setList={setLikes} />
+          <UserList
+            title="likes"
+            list={likes}
+            setList={setLikes}
+            listLoading={loading.likesLoading}
+          />
         </PopupContainer>
 
         <div>

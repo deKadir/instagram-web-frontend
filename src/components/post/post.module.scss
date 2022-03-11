@@ -125,3 +125,14 @@
     }
   }
 }
+@media screen and (max-width: $container-large) {
+  .post {
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+@media screen and (max-width: $container-medium) {
+  .post {
+    width: 95%;
+  }
+}

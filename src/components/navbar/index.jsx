@@ -16,20 +16,18 @@ import { SearchInput } from "./../inputs/index";
 import Menu from "components/menu";
 import { NewPostIcon } from "assets/icons";
 import SettingsMenu, { SettingsMenuItem } from "components/menu/settings";
-import NotificationMenu from "components/menu/notifications";
-import { NotificationItem } from "components/menu/notifications";
-import { FollowRequest } from "components/menu/notifications";
+
 import AddPost from "components/popup/addpost";
 import PopupContainer from "components/popup";
 import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
 import { searchUser } from "requests/UserRequest";
-
 export default function Navbar() {
   let { username, profileImg } = useSelector((state) => state.user);
   let token = useSelector((state) => state.auth.token);
   const [searchKey, setSearchKey] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+
   useEffect(() => {
     searchUser(token, searchKey)
       .then((res) => setSearchResult(res.data.users))
@@ -42,6 +40,7 @@ export default function Navbar() {
           <InstagramTextLogo />
         </Link>
         <SearchInput
+          className={style.searchInput}
           placeholder="Search"
           searchKey={searchKey}
           setSearchKey={setSearchKey}
@@ -70,21 +69,10 @@ export default function Navbar() {
             <ExploreIcon />
           </Link>
 
-          <Menu
-            Toggle={
-              <Link to={""}>
-                <HeartIcon />
-              </Link>
-            }
-          >
-            <NotificationMenu>
-              <NotificationItem />
-              <NotificationItem />
-              <NotificationItem />
-              <NotificationItem />
-              <FollowRequest />
-            </NotificationMenu>
-          </Menu>
+          <Link to={""}>
+            <HeartIcon />
+          </Link>
+
           <Menu
             Toggle={
               <img

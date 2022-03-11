@@ -12,6 +12,7 @@ import PopupContainer from "components/popup";
 import PostContainer from "components/postcontainer";
 import { usePaginate } from "hooks/paginate";
 import { getSavedPosts } from "./../../../../requests/UserRequest";
+import Loading from "components/loading/Loading";
 
 const navbarItems = [
   {
@@ -38,6 +39,7 @@ export default function ProfileContents({ user }) {
   let token = useSelector((state) => state.auth.token);
   let { page } = usePaginate();
   const [posts, setPosts] = useState([]);
+  const [profileLoading, setProfileLoading] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -47,7 +49,9 @@ export default function ProfileContents({ user }) {
         .then((res) => {
           setPosts([...posts, ...res.data.data]);
         })
-        .catch((err) => console.log(err.response));
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
   }, [page]);
   useEffect(() => {
@@ -97,6 +101,7 @@ export default function ProfileContents({ user }) {
           })}
         </GridPosts>
       )}
+
       {
         content === "saved" && username === pathUsername && (
           <GridPosts>

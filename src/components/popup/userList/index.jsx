@@ -9,10 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { follow } from "requests/UserRequest";
 import { saveUserInfo } from "redux/actions/userAction";
 import { useNavigate } from "react-router-dom";
+import Loading from "components/loading/Loading";
 
 export default function UserList({
   title = "",
   list = [],
+  listLoading = false,
   setList = () => {},
 }) {
   const [loading, setLoading] = useState(false);
@@ -61,7 +63,9 @@ export default function UserList({
       <div className={style.list_head}>
         <h4>{title}</h4>
       </div>
+
       <section className={style.list_items}>
+        {listLoading && <Loading />}
         {list.map((user, key) => {
           return (
             <div className={style.list_item} key={key}>

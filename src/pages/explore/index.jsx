@@ -8,6 +8,7 @@ import { usePaginate } from "hooks/paginate";
 import { explorePosts } from "requests/PostRequest";
 import { useSelector } from "react-redux";
 import PostContainer from "components/postcontainer";
+import Loading from "components/loading/Loading";
 export default function Explore() {
   let token = useSelector((state) => state.auth.token);
   const [posts, setPosts] = useState([]);
@@ -22,6 +23,7 @@ export default function Explore() {
     <div className={style.explore}>
       <Navbar />
       <div className={style.explore_body}>
+        {!posts.length && <Loading />}
         <GridPosts>
           {posts.map((post, index) => {
             return (

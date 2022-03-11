@@ -5,3 +5,9 @@
   height: 100%;
   top: 60px;
 }
+@media screen and (max-width: $container-large) {
+  .sidebar {
+    display: none;
+    width: 0;
+  }
+}

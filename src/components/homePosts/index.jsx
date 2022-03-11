@@ -4,7 +4,8 @@ import { postFeed } from "requests/PostRequest";
 import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
 import { usePaginate } from "hooks/paginate";
-
+import style from "./posts.module.scss";
+import Loading from "components/loading/Loading";
 export default function HomePosts() {
   let token = useSelector((state) => state.auth.token);
   let { page } = usePaginate();
@@ -17,7 +18,8 @@ export default function HomePosts() {
       .catch((e) => console.log(e.response));
   }, [page]);
   return (
-    <div>
+    <div className={style.postsWrapper}>
+      {!posts.length && <Loading />}
       {posts.map((post, index) => (
         <Post post={post} key={index} />
       ))}

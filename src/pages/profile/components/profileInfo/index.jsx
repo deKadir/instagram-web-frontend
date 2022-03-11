@@ -13,37 +13,42 @@ import UserList from "components/popup/userList";
 import { getFollowers } from "requests/UserRequest";
 import { getFollowings } from "requests/UserRequest";
 
+const loadingInitial = {
+  userInfoLoading: false,
+  listLoading: false,
+};
 export default function ProfileInfo({ user, setUser }) {
   let userInfo = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(loadingInitial);
 
   let token = useSelector((state) => state.auth.token);
   let username = useParams().username;
   useEffect(() => {
     //getUserInfo from local storage
     if (username === userInfo?.username) {
-      setLoading(true);
       setUser({
         ...userInfo,
       });
-      setLoading(false);
-    } else {
-      setLoading(false);
     }
+    setLoading({ ...loading, userInfoLoading: false });
   }, [username]);
 
   useEffect(() => {
     //get userInfo from backend
     if (userInfo?.username !== username) {
-      setLoading(true);
+      setLoading({ ...loading, userInfoLoading: true });
+
       getUserInfo(username, token)
         .then((res) => {
           setUser({ ...res.data.data });
-          setLoading(false);
+          setLoading({ ...loading, userInfoLoading: false });
         })
-        .catch((er) => console.warn(er.response));
+        .catch((er) => {
+          console.warn(er.response);
+          setLoading({ ...loading, userInfoLoading: false });
+        });
     } else {
-      setLoading(false);
+      setLoading({ ...loading, userInfoLoading: false });
     }
   }, [username]);
 
@@ -57,8 +62,10 @@ export default function ProfileInfo({ user, setUser }) {
   useEffect(() => {
     setUserList([]);
     if (listPopup.type === "following" && listPopup.active) {
+      setLoading({ ...loading, listLoading: true });
       getFollowings(token, user?._id)
         .then((res) => {
+          setLoading({ ...loading, listLoading: false });
           setUserList(
             res.data.data.map((u) => {
               return {
@@ -68,18 +75,26 @@ export default function ProfileInfo({ user, setUser }) {
             })
           );
         })
-        .catch((e) => console.log(e.data));
+        .catch((e) => {
+          console.log(e.data);
+          setLoading({ ...loading, listLoading: false });
+        });
     }
     if (listPopup.type === "followers" && listPopup.active) {
+      setLoading({ ...loading, listLoading: true });
       getFollowers(token, user?._id)
         .then((res) => {
+          setLoading({ ...loading, listLoading: false });
           setUserList(
             res?.data.followers?.map((u) => {
               return { ...u.follower, isFollowing: u.isFollowing };
             })
           );
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          console.log(e);
+          setLoading({ ...loading, listLoading: false });
+        });
     }
   }, [listPopup, user]);
 
@@ -90,7 +105,7 @@ export default function ProfileInfo({ user, setUser }) {
       </div>
 
       <div className={style.profile_info}>
-        {!user || loading ? (
+        {!user || loading.userInfoLoading ? (
           <>
             <Skeleton />
             <Skeleton />
@@ -129,6 +144,7 @@ export default function ProfileInfo({ user, setUser }) {
                   title="followers"
                   list={userList}
                   setList={setUserList}
+                  listLoading={loading.listLoading}
                 />
               </PopupContainer>
               <PopupContainer
@@ -148,6 +164,7 @@ export default function ProfileInfo({ user, setUser }) {
                   title="Following"
                   setList={setUserList}
                   list={userList}
+                  listLoading={loading.listLoading}
                 />
               </PopupContainer>
             </div>

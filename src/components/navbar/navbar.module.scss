@@ -27,3 +27,8 @@
     }
   }
 }
+@media screen and (max-width: $container-large) {
+  .navbar {
+    padding-inline: 1rem;
+  }
+}

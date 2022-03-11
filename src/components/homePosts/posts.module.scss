@@ -1,0 +1,10 @@
+@import "styles/variables.module.scss";
+.postsWrapper {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: $container-large) {
+  .postsWrapper {
+    align-items: center;
+  }
+}

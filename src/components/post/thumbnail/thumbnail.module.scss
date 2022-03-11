@@ -1,8 +1,8 @@
 @import "styles/global.module.scss";
 .thumbnail_img {
   position: relative;
-  width: calc(($container-width/3) - 1rem);
-  height: calc(($container-width/3) - 1rem);
+  width: 20vw;
+  height: 20vw;
   margin-right: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
@@ -88,5 +88,11 @@
         fill: $color-white;
       }
     }
+  }
+}
+@media screen and (max-width: $container-large) {
+  .thumbnail_img {
+    width: 30vw;
+    margin-inline: auto;
   }
 }

@@ -18,9 +18,16 @@ export default function Comment({ comment }) {
         onClick={handleNavigate}
       />
       <div className={style.comment_body}>
-        <p className={style.comment_message} onClick={handleNavigate}>
-          {comment?.owner?.username} <span>{comment?.comment}</span>
-        </p>
+        <div style={{ display: "flex", alignItems: "baseline" }}>
+          <p
+            className={style.comment_message}
+            onClick={handleNavigate}
+            style={{ marginRight: ".5rem" }}
+          >
+            {comment?.owner?.username}
+          </p>
+          <span style={{ fontSize: "0.875rem" }}>{comment?.comment}</span>
+        </div>
 
         <div className={style.comment_info}>
           <small>{comment?.createdAt}</small>

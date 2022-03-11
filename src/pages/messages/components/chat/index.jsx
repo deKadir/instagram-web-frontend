@@ -12,6 +12,8 @@ import { getImage } from "helpers/image";
 
 import { SocketContext } from "context/SocketContext";
 import Events from "constants/SocketConfig";
+import Skeleton from "react-loading-skeleton";
+import Loading from "components/loading/Loading";
 export default function Chat() {
   let roomId = useParams().roomId;
   let navigate = useNavigate();
@@ -26,18 +28,24 @@ export default function Chat() {
   const [messageFromSocket, setMessageFromSocket] = useState("");
   document.title = "Chat";
 
+  const [loading, setLoading] = useState(false);
+
   //handle tab changes
   useEffect(() => {
     setMessages([]);
     setMessageInput({ ...messageInput, roomId: roomId });
     if (roomId !== "inbox") {
+      setLoading(true);
       getMessages(token, roomId)
         .then((res) => {
           setMessages(res.data.messages);
-
           setActiveTab(...res.data.users.filter((u) => u._id !== activeUserId));
+          setLoading(false);
         })
-        .catch((e) => console.log(e.response));
+        .catch((e) => {
+          console.log(e.response);
+          setLoading(false);
+        });
     }
   }, [roomId]);
 
@@ -45,7 +53,7 @@ export default function Chat() {
   const messagesEndRef = useRef(null);
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView();
-  }, [messages]);
+  }, [messages, loading]);
 
   //send message
   const handleMessageSubmit = (e) => {
@@ -92,6 +100,7 @@ export default function Chat() {
         }
       });
     }
+
     return () => setMessageFromSocket(null);
   }, [messageFromSocket, activeTab]);
   if (roomId === "inbox") {
@@ -105,6 +114,23 @@ export default function Chat() {
         }}
       >
         <h1>Start messaging</h1>
+      </div>
+    );
+  }
+  if (loading) {
+    return (
+      <div className={style.chat}>
+        <div className={style.chat_navbar}>
+          <Skeleton circle={true} width="24px" height="24px" />
+          <p onClick={() => navigate(`/profile/${activeTab?.username}/posts`)}>
+            <Skeleton width="100px" height="24px" />
+          </p>
+          <InfoIcon />
+        </div>
+        <div className={style.chat_body}>
+          {" "}
+          <Loading />{" "}
+        </div>
       </div>
     );
   }
@@ -128,6 +154,7 @@ export default function Chat() {
           <Messagebox
             text={message.text}
             owner={message.sender === activeUserId}
+            profileImg={activeTab?.profileImg}
             key={index}
           />
         ))}
