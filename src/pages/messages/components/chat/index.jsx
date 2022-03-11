@@ -1,49 +1,43 @@
-import { EmojiIcon } from 'assets/icons';
-import { Button } from 'components/buttons';
-import Messagebox from 'components/messagebox';
-import { useEffect, useContext, useState, useRef } from 'react';
+import { EmojiIcon } from "assets/icons";
+import { Button } from "components/buttons";
+import Messagebox from "components/messagebox";
+import { useEffect, useContext, useState, useRef } from "react";
 
-import style from './chat.module.scss';
-import { InfoIcon } from 'assets/icons';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getMessages, sendMessage } from 'requests/ChatRequest';
-import { useSelector } from 'react-redux';
-import { getImage } from 'helpers/image';
+import style from "./chat.module.scss";
+import { InfoIcon } from "assets/icons";
+import { useNavigate, useParams } from "react-router-dom";
+import { getMessages, sendMessage } from "requests/ChatRequest";
+import { useSelector } from "react-redux";
+import { getImage } from "helpers/image";
 
-import { SocketContext } from 'context/SocketContext';
+import { SocketContext } from "context/SocketContext";
+import Events from "constants/SocketConfig";
 export default function Chat() {
   let roomId = useParams().roomId;
   let navigate = useNavigate();
-  let token = useSelector(state => state.auth.token);
-  const { messages, setMessages, socket } = useContext(SocketContext);
-  let activeUserId = useSelector(state => state.user)._id;
+  let token = useSelector((state) => state.auth.token);
+  const { messages, setMessages, socket, rooms } = useContext(SocketContext);
+  let activeUserId = useSelector((state) => state.user)._id;
   const [messageInput, setMessageInput] = useState({
     roomId: roomId,
-    text: '',
+    text: "",
   });
   const [activeTab, setActiveTab] = useState();
-
-  document.title = 'Chat';
-  // useEffect(() => {
-  //   socket.off('getMessage').on('getMessage', comingMessage => {
-  //     // setMessages([...messages, comingMessage]);
-  //     console.log('test', comingMessage);
-  //   });
-  // });
+  const [messageFromSocket, setMessageFromSocket] = useState("");
+  document.title = "Chat";
 
   //handle tab changes
-  useEffect(() => {}, [activeTab?._id, socket]);
   useEffect(() => {
     setMessages([]);
     setMessageInput({ ...messageInput, roomId: roomId });
-    if (roomId !== 'inbox') {
+    if (roomId !== "inbox") {
       getMessages(token, roomId)
-        .then(res => {
+        .then((res) => {
           setMessages(res.data.messages);
 
-          setActiveTab(...res.data.users.filter(u => u._id !== activeUserId));
+          setActiveTab(...res.data.users.filter((u) => u._id !== activeUserId));
         })
-        .catch(e => console.log(e.response));
+        .catch((e) => console.log(e.response));
     }
   }, [roomId]);
 
@@ -53,9 +47,10 @@ export default function Chat() {
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
-  const handleMessageSubmit = e => {
+  //send message
+  const handleMessageSubmit = (e) => {
     e.preventDefault();
-    socket.emit('sendMessage', {
+    socket.emit(Events.SEND_MESSAGE, {
       sender: activeUserId,
       conversationId: roomId,
       receiverId: activeTab?._id,
@@ -72,17 +67,47 @@ export default function Chat() {
             text: messageInput.text,
           },
         ]);
-        setMessageInput({ ...messageInput, text: '' });
+        setMessageInput({ ...messageInput, text: "" });
       })
-      .catch(error => console.log(error.response));
+      .catch((error) => console.log(error.response));
   };
+
+  //listen messages from socket
   useEffect(() => {
-    socket.on('getMessage', comingMessage => {
-      //incele burayı işte
-      // setMessages([...messages, comingMessage]);
-      console.log(comingMessage);
+    socket.on(Events.GET_MESSAGE, (comingMessage) => {
+      setMessageFromSocket(comingMessage);
     });
   }, [socket]);
+
+  //add coming message to messages
+  useEffect(() => {
+    if (messageFromSocket) {
+      setMessages([...messages, messageFromSocket]);
+    }
+    //update last message on rooms
+    if (messageFromSocket) {
+      rooms.forEach((room) => {
+        if (room.users.includes(activeTab?._id)) {
+          room.lastMessage[0].text = messageFromSocket;
+        }
+      });
+    }
+    return () => setMessageFromSocket(null);
+  }, [messageFromSocket, activeTab]);
+  if (roomId === "inbox") {
+    return (
+      <div
+        className={style.chat}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h1>Start messaging</h1>
+      </div>
+    );
+  }
   return (
     <div className={style.chat}>
       {/* user profile */}
@@ -95,7 +120,6 @@ export default function Chat() {
         <p onClick={() => navigate(`/profile/${activeTab?.username}/posts`)}>
           {activeTab?.username}
         </p>
-        <div>{activeTab?._id}</div>
         <InfoIcon />
       </div>
       {/* chat messages */}
@@ -114,19 +138,20 @@ export default function Chat() {
         <EmojiIcon />
         <input
           placeholder="type message"
-          onKeyPress={e => {
-            if (e.key === 'Enter') {
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
               handleMessageSubmit(e);
             }
           }}
           value={messageInput.text}
-          onChange={e =>
+          onChange={(e) =>
             setMessageInput({ ...messageInput, text: e.target.value })
           }
         />
         <Button
           disabled={!messageInput.text.length}
-          onClick={e => handleMessageSubmit(e)}>
+          onClick={(e) => handleMessageSubmit(e)}
+        >
           Send
         </Button>
       </div>

@@ -4,9 +4,11 @@ import { DropdownIcon, NewMessages } from "assets/icons";
 
 import { useSelector } from "react-redux";
 import { getRooms } from "requests/ChatRequest";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useContext } from "context/Context";
+import { SocketContext } from "context/SocketContext";
 export default function Messages() {
-  const [rooms, setRooms] = useState([]);
+  const { rooms, setRooms } = useContext(SocketContext);
   const token = useSelector((state) => state.auth.token);
   let userInfo = useSelector((state) => state.user);
 
@@ -14,7 +16,7 @@ export default function Messages() {
     getRooms(token).then((result) => {
       setRooms([...result?.data?.rooms]);
     });
-  }, []);
+  });
 
   return (
     <div className={style.messages}>
