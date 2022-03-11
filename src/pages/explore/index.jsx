@@ -17,6 +17,7 @@ export default function Explore() {
     explorePosts(token, `?page=${page}&limit=5`).then((res) => {
       setPosts([...posts, ...res.data.posts]);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   document.title = "Explore";
   return (

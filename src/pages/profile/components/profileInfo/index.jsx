@@ -31,6 +31,7 @@ export default function ProfileInfo({ user, setUser }) {
       });
     }
     setLoading({ ...loading, userInfoLoading: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function ProfileInfo({ user, setUser }) {
     } else {
       setLoading({ ...loading, userInfoLoading: false });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   //followings and followers popup
@@ -96,6 +98,7 @@ export default function ProfileInfo({ user, setUser }) {
           setLoading({ ...loading, listLoading: false });
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listPopup, user]);
 
   return (

@@ -47,6 +47,7 @@ export default function Chat() {
           setLoading(false);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId]);
 
   //scroll to bottom when messages uploaded
@@ -100,7 +101,7 @@ export default function Chat() {
         }
       });
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => setMessageFromSocket(null);
   }, [messageFromSocket, activeTab]);
   if (roomId === "inbox") {

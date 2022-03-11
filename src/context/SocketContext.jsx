@@ -13,7 +13,7 @@ function SocketContextProvider(props) {
   const [rooms, setRooms] = useState([]);
   const me = JSON.parse(localStorage.getItem("instagram_clone"));
 
-  socket.emit("addUser", {
+  socket.emit(Events.ADD_USER, {
     userId: me.user._id,
     socketId: socket.id,
   });

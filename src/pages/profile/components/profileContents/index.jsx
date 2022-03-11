@@ -11,8 +11,7 @@ import { useSelector } from "react-redux";
 import PopupContainer from "components/popup";
 import PostContainer from "components/postcontainer";
 import { usePaginate } from "hooks/paginate";
-import { getSavedPosts } from "./../../../../requests/UserRequest";
-import Loading from "components/loading/Loading";
+import { getSavedPosts } from "requests/UserRequest";
 
 const navbarItems = [
   {
@@ -39,7 +38,7 @@ export default function ProfileContents({ user }) {
   let token = useSelector((state) => state.auth.token);
   let { page } = usePaginate();
   const [posts, setPosts] = useState([]);
-  const [profileLoading, setProfileLoading] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -63,12 +62,14 @@ export default function ProfileContents({ user }) {
         })
         .catch((err) => console.log(err.response));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, content]);
   const [savedPosts, setSavedPosts] = useState([]);
   useEffect(() => {
     if (content === "saved") {
       getSavedPosts(token).then((res) => setSavedPosts(res.data.posts));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
   return (
     <div className={style.contents}>

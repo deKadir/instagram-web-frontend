@@ -1,5 +1,4 @@
 import HomePosts from "components/homePosts";
-import Stories from "components/stories/Stories";
 import React from "react";
 import style from "./feed.module.scss";
 export default function Feed() {
