@@ -19,6 +19,7 @@ export default function Wrapper() {
         dispatch(saveUserInfo(res.data.data));
       })
       .catch(() => setAuth({ auth: false, loading: false }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   return (
     <Routes>

@@ -52,6 +52,7 @@ export default function ProfileContents({ user }) {
           console.log(err.response);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   useEffect(() => {
     setPosts([]);

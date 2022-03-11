@@ -101,8 +101,8 @@ export default function Chat() {
         }
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => setMessageFromSocket(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageFromSocket, activeTab]);
   if (roomId === "inbox") {
     return (
