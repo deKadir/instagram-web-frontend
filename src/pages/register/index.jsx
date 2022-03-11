@@ -76,6 +76,7 @@ export default function Register() {
           value={registerForm.password}
           onChange={handleFormChange}
           name="password"
+          type="password"
         />
         <label style={{ color: "red" }}>{error}</label>
         <ButtonPrimary
