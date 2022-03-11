@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./add.module.scss";
-import profile from "assets/images/profile_img.jpg";
-import postImg from "assets/images/post_img.jpg";
+
 import { ButtonText } from "components/buttons";
 import { getImage } from "helpers/image";
 import { PhotosIcon } from "assets/icons";

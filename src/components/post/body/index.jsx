@@ -16,7 +16,7 @@ export default function PostBody({ photos = [] }) {
           </span>
         )}
 
-        <img src={getImage(photos[photoIndex])} />
+        <img src={getImage(photos[photoIndex])} alt="post_img" />
         {photos.length !== photoIndex + 1 && (
           <span className={style.rightArrow}>
             <CarouselIconRight onClick={() => setPhotoIndex(photoIndex + 1)} />

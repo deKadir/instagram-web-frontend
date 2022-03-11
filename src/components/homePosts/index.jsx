@@ -2,7 +2,6 @@ import Post from "components/post";
 import React, { useEffect, useState } from "react";
 import { postFeed } from "requests/PostRequest";
 import { useSelector } from "react-redux";
-import { getImage } from "helpers/image";
 import { usePaginate } from "hooks/paginate";
 import style from "./posts.module.scss";
 import Loading from "components/loading/Loading";
@@ -16,7 +15,8 @@ export default function HomePosts() {
         setPosts([...posts, ...res.data.data]);
       })
       .catch((e) => console.log(e.response));
-  }, [page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, token]);
   return (
     <div className={style.postsWrapper}>
       {!posts.length && <Loading />}

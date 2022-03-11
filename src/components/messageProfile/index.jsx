@@ -1,7 +1,6 @@
 import style from "./messageProfile.module.scss";
 import { useSelector } from "react-redux";
 import { getImage } from "helpers/image";
-import { MainContext, useContext } from "context/Context";
 import { useNavigate } from "react-router-dom";
 
 export default function MessageProfile({ room }) {
@@ -16,7 +15,7 @@ export default function MessageProfile({ room }) {
         navigate(`/messages/${room._id}`);
       }}
     >
-      <img src={getImage(activeRoom.profileImg)} />
+      <img src={getImage(activeRoom.profileImg)} alt={activeRoom?.username} />
       <div>
         <p>{activeRoom?.username}</p>
         <p>{room?.lastMessage[0]?.text}</p>

@@ -1,10 +1,7 @@
 import React from "react";
 import style from "./comment.module.scss";
-import profile from "assets/images/profile_img.jpg";
-import { HeartIcon } from "assets/icons";
 import { useNavigate } from "react-router-dom";
 import { getImage } from "helpers/image";
-import { HeartIconActive } from "assets/icons";
 
 export default function Comment({ comment }) {
   let navigate = useNavigate();
@@ -16,6 +13,7 @@ export default function Comment({ comment }) {
       <img
         src={getImage(comment?.owner?.profileImg)}
         onClick={handleNavigate}
+        alt={comment?.owner?.username}
       />
       <div className={style.comment_body}>
         <div style={{ display: "flex", alignItems: "baseline" }}>

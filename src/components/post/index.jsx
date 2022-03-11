@@ -128,20 +128,15 @@ export default function Post({ children, post: _post }) {
 
         <PopupContainer
           Toggle={
-            <a>
-              <p className={style.post_info_p}>
-                View all {post?.commentCount >= 1 && post?.commentCount}{" "}
-                comments
-              </p>
-            </a>
+            <p className={style.post_info_p}>
+              View all {post?.commentCount >= 1 && post?.commentCount} comments
+            </p>
           }
         >
           <PostContainer postId={post?._id} setPost={setPost} />
         </PopupContainer>
 
-        <a>
-          <small className={style.post_time}>{post?.createdAt}</small>
-        </a>
+        <small className={style.post_time}>{post?.createdAt}</small>
       </div>
       <CommentForm postId={post?._id} />
     </div>

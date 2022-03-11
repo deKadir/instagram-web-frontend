@@ -1,7 +1,7 @@
 import PostHead from "components/post/head";
 import style from "./showpost.module.scss";
 
-import { ShareIcon, HeartIcon, SaveIcon, SaveIconActive } from "assets/icons";
+import { ShareIcon, HeartIcon } from "assets/icons";
 import postStyle from "components/post/post.module.scss";
 import Comment from "components/comment/index";
 import { CommentIcon } from "assets/icons";
@@ -24,6 +24,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
   const [commentsLoading, setCommentsLoading] = useState(false);
   useEffect(() => {
     getPost(token, postId).then((res) => setPost(res.data.data));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
           setCommentsLoading(false);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
   const handleLikesPopup = () => {
     getPostLikes(token, postId)
@@ -96,9 +98,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
           <div className={postStyle.post_info} onClick={handleLikesPopup}>
             <p>{post?.likeCount} likes</p>
 
-            <a>
-              <small className={postStyle.post_time}>{post?.createdAt}</small>
-            </a>
+            <small className={postStyle.post_time}>{post?.createdAt}</small>
           </div>
           <CommentForm
             setComments={setComments}
@@ -141,9 +141,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
           <div className={postStyle.post_info} onClick={handleLikesPopup}>
             <p>{post?.likeCount} likes</p>
 
-            <a>
-              <small className={postStyle.post_time}>{post?.createdAt}</small>
-            </a>
+            <small className={postStyle.post_time}>{post?.createdAt}</small>
           </div>
           <CommentForm
             setComments={setComments}

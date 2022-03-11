@@ -6,7 +6,7 @@ export default function Follow({ text, width = "32px" }) {
       <img alt="" src={profile} width={width} height={width} />
       <div>
         <p>kadir</p>
-        <span>followed by seyma+2 more</span>
+        <span>new account</span>
       </div>
       <button>Follow</button>
     </div>

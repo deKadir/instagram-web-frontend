@@ -1,5 +1,4 @@
 import { SearchIcon } from "assets/icons";
-import { ButtonText } from "components/buttons";
 import { SearchItem } from "components/menu/search";
 import React, { useState } from "react";
 import style from "./input.module.scss";

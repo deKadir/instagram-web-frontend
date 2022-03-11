@@ -32,7 +32,7 @@ export default function Navbar() {
     searchUser(token, searchKey)
       .then((res) => setSearchResult(res.data.users))
       .catch((e) => console.log(e.response));
-  }, [searchKey]);
+  }, [searchKey, token]);
   return (
     <div className={style.navbar}>
       <div className={style.navbar_container}>
