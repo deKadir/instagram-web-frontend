@@ -1,5 +1,5 @@
 export const BASE_URL = "https://serene-meadow-49392.herokuapp.com/api/";
-
+export const BACKEND_URL = "https://git.heroku.com/serene-meadow-49392.git";
 export const ApiConfig = {
   auth: {
     login: "auth/login",

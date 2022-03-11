@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 export default function Suggestions() {
   const [suggestions, setSuggestions] = useState([]);
   const token = useSelector((state) => state.auth.token);
+  const activeUser = useSelector((state) => state.user);
   useEffect(() => {
     searchUser(token, "").then((res) => {
       setSuggestions(res.data.users);
@@ -17,9 +18,11 @@ export default function Suggestions() {
         <p>Suggestions for you</p>
         <button>see all</button>
       </div>
-      {suggestions.map((user, index) => {
-        return <Follow userInfo={user} key={index} />;
-      })}
+      {suggestions
+        .filter((user) => user.username !== activeUser?.username)
+        .map((user, index) => {
+          return <Follow userInfo={user} key={index} />;
+        })}
     </div>
   );
 }

@@ -4,8 +4,9 @@ import { useState } from "react";
 import { createContext } from "react";
 
 import socketIOClient from "socket.io-client";
+import { BACKEND_URL } from "../constants/ApiConfig";
 export const SocketContext = createContext();
-const socket = socketIOClient("http://localhost:3001");
+const socket = socketIOClient(BACKEND_URL);
 
 function SocketContextProvider(props) {
   const [activeRoom, setActiveRoom] = useState();
