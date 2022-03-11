@@ -19,15 +19,16 @@ import SettingsMenu, { SettingsMenuItem } from "components/menu/settings";
 
 import AddPost from "components/popup/addpost";
 import PopupContainer from "components/popup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getImage } from "helpers/image";
 import { searchUser } from "requests/UserRequest";
+import { saveToken } from "../../redux/actions/authAction";
 export default function Navbar() {
   let { username, profileImg } = useSelector((state) => state.user);
   let token = useSelector((state) => state.auth.token);
   const [searchKey, setSearchKey] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-
+  let dispatch = useDispatch();
   useEffect(() => {
     searchUser(token, searchKey)
       .then((res) => setSearchResult(res.data.users))
@@ -96,7 +97,10 @@ export default function Navbar() {
                 Saved
               </SettingsMenuItem>
               <SettingsMenuItem
-                to={""}
+                to={"/login"}
+                onClick={() => {
+                  dispatch(saveToken(null));
+                }}
                 style={{ borderTop: `1px solid ${Styles.borderColor}` }}
               >
                 logout
