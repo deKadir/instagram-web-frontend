@@ -11,23 +11,23 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-
-login 
-register
-reset password
-follow-unfollow user
-list followers
-list followings
-list posts
-explore
-chat system
-add post
-save post
-like post
-comment on post
-get post likes
-get post comments
-edit profile
-change profile image
-change password
+### available properties
+login <br/>
+register<br/>
+reset password<br/>
+follow-unfollow user<br/>
+list followers<br/>
+list followings<br/>
+list posts<br/>
+explore<br/>
+chat system<br/>
+add post<br/>
+save post<br/>
+like post<br/>
+comment on post<br/>
+get post likes<br/>
+get post comments<br/>
+edit profile<br/>
+change profile image<br/>
+change password<br/>
 search user on searchbar
