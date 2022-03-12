@@ -28,7 +28,7 @@ export default function Comment({ comment }) {
             <img
               src={verified}
               style={{ width: "16px", height: "16px" }}
-              alt="verified"
+              alt="v"
             />
           )}
 

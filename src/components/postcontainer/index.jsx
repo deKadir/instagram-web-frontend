@@ -44,9 +44,7 @@ export default function PostContainer({ postId, setPost: _setPost }) {
   }, [post]);
   const handleLikesPopup = () => {
     getPostLikes(token, postId)
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((e) => console.log(e.response));
   };
   const [loading, setLoading] = useState(false);

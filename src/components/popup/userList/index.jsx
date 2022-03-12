@@ -69,11 +69,19 @@ export default function UserList({
             <div className={style.list_item} key={key}>
               <img src={getImage(user?.profileImg)} alt="profile img" />
               <div className={style.list_item_info}>
-                <p onClick={() => navigate(`/profile/${user?.username}/posts`)}>
+                <p
+                  onClick={() => {
+                    navigate(`/profile/${user?.username}/posts`);
+                    window.location.reload();
+                  }}
+                >
                   {user?.username}
                 </p>
                 <span
-                  onClick={() => navigate(`/profile/${user?.username}/posts`)}
+                  onClick={() => {
+                    navigate(`/profile/${user?.username}/posts`);
+                    window.location.reload();
+                  }}
                 >
                   {user?.name}
                 </span>
