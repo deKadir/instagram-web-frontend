@@ -1,6 +1,6 @@
 import React from "react";
 import style from "../post.module.scss";
-
+import verified from "assets/images/verified.png";
 import { MoreIcon } from "assets/icons";
 import { getImage } from "helpers/image";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,12 @@ export default function PostHead({ user }) {
           />
 
           <p onClick={handleClick}>{user?.username}</p>
+          {user?.verified && (
+            <img
+              src={verified}
+              style={{ width: "16px", height: "16px", marginLeft: "0.4rem" }}
+            />
+          )}
         </div>
         <MoreIcon />
       </div>

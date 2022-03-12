@@ -2,6 +2,7 @@
 .profile {
   display: flex;
   margin: 4% 0px;
+
   h4 {
     font-weight: 350;
     font-style: normal;
@@ -40,6 +41,7 @@
     margin-top: 0.875rem;
     gap: 2rem;
     padding-bottom: 0.5rem;
+    align-items: center;
   }
   &_user {
     display: flex;
@@ -50,4 +52,7 @@
       @include active;
     }
   }
+}
+.verified {
+  margin-left: -1.5rem;
 }

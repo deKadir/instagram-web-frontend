@@ -12,7 +12,7 @@ import PopupContainer from "components/popup";
 import UserList from "components/popup/userList";
 import { getFollowers } from "requests/UserRequest";
 import { getFollowings } from "requests/UserRequest";
-
+import verified from "assets/images/verified.png";
 const loadingInitial = {
   userInfoLoading: false,
   listLoading: false,
@@ -120,6 +120,15 @@ export default function ProfileInfo({ user, setUser }) {
           <>
             <div className={style.profile_account}>
               <h4>{user.username}</h4>
+              {user.verified && (
+                <img
+                  src={verified}
+                  width="20px"
+                  height="20px"
+                  className={style.verified}
+                />
+              )}
+
               {username === userInfo.username ? (
                 <EditProfile />
               ) : (
