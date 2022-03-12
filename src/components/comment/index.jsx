@@ -25,7 +25,11 @@ export default function Comment({ comment }) {
             {comment?.owner?.username}
           </p>
           {comment?.owner?.verified && (
-            <img src={verified} style={{ width: "16px", height: "16px" }} />
+            <img
+              src={verified}
+              style={{ width: "16px", height: "16px" }}
+              alt="verified"
+            />
           )}
 
           <span style={{ fontSize: "0.875rem" }}>{comment?.comment}</span>

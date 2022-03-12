@@ -126,6 +126,7 @@ export default function ProfileInfo({ user, setUser }) {
                   width="20px"
                   height="20px"
                   className={style.verified}
+                  alt="verified"
                 />
               )}
 
