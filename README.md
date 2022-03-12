@@ -12,22 +12,22 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 
-*login \n
-*register
-*reset password
-*follow-unfollow user
-*list followers
-*list followings
-*list posts
-*explore
-*chat system
-*add post
-*save post
-*like post
-*comment on post
-*get post likes
-*get post comments
-*edit profile
-*change profile image
-*change password
-*search user on searchbar
+login 
+register
+reset password
+follow-unfollow user
+list followers
+list followings
+list posts
+explore
+chat system
+add post
+save post
+like post
+comment on post
+get post likes
+get post comments
+edit profile
+change profile image
+change password
+search user on searchbar
