@@ -17,7 +17,7 @@ export default function PostHead({ user }) {
           <img
             onClick={handleClick}
             src={getImage(user?.profileImg)}
-            alt="verified"
+            alt="profileimg"
             style={{ "object-fit": " cover" }}
           />
 
@@ -26,6 +26,7 @@ export default function PostHead({ user }) {
             <img
               src={verified}
               style={{ width: "16px", height: "16px", marginLeft: "0.4rem" }}
+              alt="verified"
             />
           )}
         </div>
