@@ -1,20 +1,14 @@
-### test account
+
+# Warning
+images are deleted from server by heroku everyday. So images aren't loading. Update new post or profile img 
+
+# test account
 
 username:test <br/>
 password:12345 <br/>
 
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### available properties
 login <br/>
