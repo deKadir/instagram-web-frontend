@@ -1,6 +1,6 @@
 
 # Warning
-images are deleted from server by heroku everyday. So images aren't loading. Update new post or profile img 
+images are deleted from server by heroku daily. Update new post or profile img to test images
 
 # test account
 
